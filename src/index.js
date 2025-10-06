@@ -14,7 +14,7 @@ projectDescription.textContent = defaultProject.description;
 projectDivision.appendChild(projectTitle);
 projectDivision.appendChild(projectDescription);
 
-// Creating task
+// Creating default task
 const listArea = document.createElement("ul");
 for (const task of defaultProject.tasks) {
   const li = document.createElement("li");
@@ -22,6 +22,23 @@ for (const task of defaultProject.tasks) {
   listArea.appendChild(li);
 }
 
+// Add task
+const addTaskInput = document.createElement("input");
+const addTaskBtn = document.createElement("button");
+addTaskBtn.textContent = "Add Task";
+
 content.appendChild(title);
 content.appendChild(projectDivision);
 content.appendChild(listArea);
+content.appendChild(addTaskInput);
+content.appendChild(addTaskBtn);
+
+addTaskBtn.addEventListener("click", () => {
+  defaultProject.tasks.push(addTaskInput.value);
+  const li = document.createElement("li");
+  li.textContent = addTaskInput.value;
+  listArea.appendChild(li);
+  content.appendChild(listArea);
+});
+
+const defaultd = defaultProject;
