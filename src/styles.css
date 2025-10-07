@@ -16,3 +16,11 @@ li {
 #content {
   height: 100vh;
 }
+
+.taskContainer {
+  display: flex;
+  border: 1px solid gray;
+  width: 50%;
+  justify-content: space-between;
+  padding: 0.5em;
+}

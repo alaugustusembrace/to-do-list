@@ -17,13 +17,25 @@ projectDivision.appendChild(projectDescription);
 // Creating default task
 const listArea = document.createElement("ul");
 for (const task of defaultProject.tasks) {
-  const li = document.createElement("li");
-  li.textContent = task;
-  listArea.appendChild(li);
+  const taskItem = document.createElement("li");
+  const taskContainer = document.createElement("div");
+  const removeTaskBtn = document.createElement("button");
+  removeTaskBtn.textContent = "X";
+  taskContainer.classList.add("taskContainer");
+
+  taskContainer.textContent = task;
+  taskContainer.appendChild(removeTaskBtn);
+  taskItem.appendChild(taskContainer);
+  listArea.appendChild(taskItem);
+
+  // Remove task
+  removeTaskBtn.addEventListener("click", () => {
+    console.log("clicked");
+  });
 }
 
-// Add task
 const addTaskInput = document.createElement("input");
+addTaskInput.placeholder = "Buy a new tank";
 const addTaskBtn = document.createElement("button");
 addTaskBtn.textContent = "Add Task";
 
@@ -33,12 +45,21 @@ content.appendChild(listArea);
 content.appendChild(addTaskInput);
 content.appendChild(addTaskBtn);
 
+// Add task
 addTaskBtn.addEventListener("click", () => {
   defaultProject.tasks.push(addTaskInput.value);
-  const li = document.createElement("li");
-  li.textContent = addTaskInput.value;
-  listArea.appendChild(li);
-  content.appendChild(listArea);
-});
+  const taskItem = document.createElement("li");
+  const taskContainer = document.createElement("div");
+  const removeTaskBtn = document.createElement("button");
+  removeTaskBtn.textContent = "X";
+  taskContainer.classList.add("taskContainer");
+  taskContainer.textContent = addTaskInput.value;
+  taskContainer.appendChild(removeTaskBtn);
+  taskItem.appendChild(taskContainer);
+  listArea.appendChild(taskItem);
 
-const defaultd = defaultProject;
+  // Remove task
+  removeTaskBtn.addEventListener("click", () => {
+    console.log("clicked");
+  });
+});
