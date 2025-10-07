@@ -2,7 +2,6 @@ import "./styles.css";
 import { defaultProject } from "./project.js";
 
 const content = document.getElementById("content");
-// const testing = document.getElementById("testing");
 const title = document.createElement("h1");
 title.textContent = "TO DO LIST";
 
@@ -36,17 +35,6 @@ for (const task of defaultProject.tasks) {
   removeTaskBtn.addEventListener("click", (e) => {
     const listItem = e.target.closest("li");
     console.log("arow");
-
-    // const unfinishedTasks = defaultProject.tasks.filter(
-    //   (item) => item.length >= 5
-    // );
-    // const testingList = document.createElement("ul");
-    // for (const testItem of unfinishedTasks) {
-    //   const listItem = document.createElement("li");
-    //   listItem.textContent = testItem;
-    //   testingList.appendChild(listItem);
-    // }
-    // testing.appendChild(testingList);
   });
 }
 
