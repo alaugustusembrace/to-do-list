@@ -13,13 +13,28 @@ projectTitle.textContent = defaultProject.title;
 projectDescription.textContent = defaultProject.description;
 projectDivision.appendChild(projectTitle);
 projectDivision.appendChild(projectDescription);
+const listArea = document.createElement("ul");
+
+content.appendChild(title);
+content.appendChild(projectDivision);
+content.appendChild(listArea);
+
+// Input and button for adding task
+const addTaskInput = document.createElement("input");
+addTaskInput.placeholder = "Buy a new tank";
+const addTaskBtn = document.createElement("button");
+addTaskBtn.textContent = "Add Task";
+
+content.appendChild(addTaskInput);
+content.appendChild(addTaskBtn);
 
 // Creating default task
-let taskItemIndex = 1;
-const listArea = document.createElement("ul");
+let taskItemIndex = 0;
 for (const task of defaultProject.tasks) {
+  taskItemIndex++;
   const taskItem = document.createElement("li");
-  taskItem.dataset.id = taskItemIndex++;
+  taskItem.dataset.id = taskItemIndex;
+  // taskItemIndex++;
   const taskContainer = document.createElement("div");
   const removeTaskBtn = document.createElement("button");
   removeTaskBtn.classList.add("remove-btn");
@@ -42,21 +57,12 @@ for (const task of defaultProject.tasks) {
   });
 }
 
-const addTaskInput = document.createElement("input");
-addTaskInput.placeholder = "Buy a new tank";
-const addTaskBtn = document.createElement("button");
-addTaskBtn.textContent = "Add Task";
-
-content.appendChild(title);
-content.appendChild(projectDivision);
-content.appendChild(listArea);
-content.appendChild(addTaskInput);
-content.appendChild(addTaskBtn);
-
 // Add task
 addTaskBtn.addEventListener("click", () => {
-  defaultProject.tasks.push(addTaskInput.value);
   const taskItem = document.createElement("li");
+  taskItemIndex++;
+  taskItem.dataset.id = taskItemIndex;
+  defaultProject.tasks.push({ id: taskItemIndex, text: addTaskInput.value });
   const taskContainer = document.createElement("div");
   const removeTaskBtn = document.createElement("button");
   removeTaskBtn.textContent = "X";
@@ -67,7 +73,12 @@ addTaskBtn.addEventListener("click", () => {
   listArea.appendChild(taskItem);
 
   // Remove task
-  removeTaskBtn.addEventListener("click", () => {
-    console.log("clicked");
+  removeTaskBtn.addEventListener("click", (e) => {
+    const listItem = e.target.closest("li");
+    defaultProject.tasks = defaultProject.tasks.filter(
+      (item) => item.id !== Number(listItem.dataset.id)
+    );
+
+    listItem.remove();
   });
 });
