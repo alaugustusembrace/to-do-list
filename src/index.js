@@ -2,6 +2,7 @@ import "./styles.css";
 import { defaultProject } from "./project.js";
 
 const content = document.getElementById("content");
+// const testing = document.getElementById("testing");
 const title = document.createElement("h1");
 title.textContent = "TO DO LIST";
 
@@ -15,11 +16,14 @@ projectDivision.appendChild(projectTitle);
 projectDivision.appendChild(projectDescription);
 
 // Creating default task
+let taskItemIndex = 0;
 const listArea = document.createElement("ul");
 for (const task of defaultProject.tasks) {
   const taskItem = document.createElement("li");
+  taskItem.dataset.id = taskItemIndex++;
   const taskContainer = document.createElement("div");
   const removeTaskBtn = document.createElement("button");
+  removeTaskBtn.classList.add("remove-btn");
   removeTaskBtn.textContent = "X";
   taskContainer.classList.add("taskContainer");
 
@@ -29,8 +33,20 @@ for (const task of defaultProject.tasks) {
   listArea.appendChild(taskItem);
 
   // Remove task
-  removeTaskBtn.addEventListener("click", () => {
-    console.log("clicked");
+  removeTaskBtn.addEventListener("click", (e) => {
+    const listItem = e.target.closest("li");
+    console.log("arow");
+
+    // const unfinishedTasks = defaultProject.tasks.filter(
+    //   (item) => item.length >= 5
+    // );
+    // const testingList = document.createElement("ul");
+    // for (const testItem of unfinishedTasks) {
+    //   const listItem = document.createElement("li");
+    //   listItem.textContent = testItem;
+    //   testingList.appendChild(listItem);
+    // }
+    // testing.appendChild(testingList);
   });
 }
 
