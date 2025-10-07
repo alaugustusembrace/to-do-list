@@ -15,7 +15,7 @@ projectDivision.appendChild(projectTitle);
 projectDivision.appendChild(projectDescription);
 
 // Creating default task
-let taskItemIndex = 0;
+let taskItemIndex = 1;
 const listArea = document.createElement("ul");
 for (const task of defaultProject.tasks) {
   const taskItem = document.createElement("li");
@@ -26,7 +26,7 @@ for (const task of defaultProject.tasks) {
   removeTaskBtn.textContent = "X";
   taskContainer.classList.add("taskContainer");
 
-  taskContainer.textContent = task;
+  taskContainer.textContent = task.text;
   taskContainer.appendChild(removeTaskBtn);
   taskItem.appendChild(taskContainer);
   listArea.appendChild(taskItem);
@@ -34,7 +34,11 @@ for (const task of defaultProject.tasks) {
   // Remove task
   removeTaskBtn.addEventListener("click", (e) => {
     const listItem = e.target.closest("li");
-    console.log("arow");
+    defaultProject.tasks = defaultProject.tasks.filter(
+      (item) => item.id !== Number(listItem.dataset.id)
+    );
+
+    listItem.remove();
   });
 }
 
