@@ -82,3 +82,27 @@ addTaskBtn.addEventListener("click", () => {
     listItem.remove();
   });
 });
+
+// Create New Project
+const newProjectDivision = document.createElement("button");
+newProjectDivision.classList.add("new-project-btn");
+newProjectDivision.textContent = "+ New Project";
+content.appendChild(newProjectDivision);
+
+newProjectDivision.addEventListener("click", () => {
+  const projectDialog = document.createElement("dialog");
+  projectDialog.classList.add("project-dialog");
+  const projectTitleInput = document.createElement("input");
+  projectTitleInput.classList.add("title-input");
+  const projectDescriptionInput = document.createElement("input");
+  projectDescriptionInput.classList.add("desc-input");
+  const projectDialogHeader = document.createElement("h2");
+  projectDialogHeader.textContent = "New Project";
+  projectTitleInput.placeholder = "Project Title";
+  projectDescriptionInput.placeholder = "Project Description";
+  projectDialog.appendChild(projectDialogHeader);
+  projectDialog.appendChild(projectTitleInput);
+  projectDialog.appendChild(projectDescriptionInput);
+  content.appendChild(projectDialog);
+  projectDialog.showModal();
+});

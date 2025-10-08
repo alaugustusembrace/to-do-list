@@ -24,3 +24,12 @@ li {
   justify-content: space-between;
   padding: 0.5em;
 }
+
+.new-project-btn {
+  margin-left: 1em;
+}
+
+.title-input,
+.desc-input {
+  margin-right: 1em;
+}
