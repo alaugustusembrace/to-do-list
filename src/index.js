@@ -99,7 +99,7 @@ newProjectDivision.addEventListener("click", () => {
   const projectDialogHeader = document.createElement("h2");
   projectDialogHeader.textContent = "New Project";
   projectTitleInput.placeholder = "Project Title";
-  projectDescriptionInput.placeholder = "Project Description";
+  projectDescriptionInput.placeholder = "Project Description`";
   projectDialog.appendChild(projectDialogHeader);
   projectDialog.appendChild(projectTitleInput);
   projectDialog.appendChild(projectDescriptionInput);
