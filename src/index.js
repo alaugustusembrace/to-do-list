@@ -15,9 +15,19 @@ projectDivision.appendChild(projectTitle);
 projectDivision.appendChild(projectDescription);
 const listArea = document.createElement("ul");
 
-content.appendChild(title);
-content.appendChild(projectDivision);
-content.appendChild(listArea);
+const projectContainer = document.createElement("div");
+projectContainer.classList.add("projectContainer");
+const projectWrapper = document.createElement("div");
+projectWrapper.classList.add("projectWrapper");
+const listAreaWrapper = document.createElement("div");
+listAreaWrapper.classList.add("listAreaWrapper");
+
+projectWrapper.appendChild(projectDivision);
+listAreaWrapper.appendChild(listArea);
+
+projectContainer.append(projectWrapper, listAreaWrapper);
+
+content.append(title, projectContainer);
 
 // Input and button for adding task
 const addTaskInput = document.createElement("input");

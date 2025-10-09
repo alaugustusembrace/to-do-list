@@ -1,12 +1,16 @@
+* {
+  box-sizing: border-box;
+}
+
 body,
-p,
 h1,
-h2 {
+h2,
+p {
   margin: 0;
 }
 
 body {
-  padding: 1.2em;
+  padding: 0;
 }
 
 li {
@@ -14,13 +18,14 @@ li {
 }
 
 #content {
-  height: 100vh;
+  min-height: 100vh;
+  padding: 1.2em;
 }
 
 .taskContainer {
   display: flex;
   border: 1px solid gray;
-  width: 50%;
+  width: 100%;
   justify-content: space-between;
   padding: 0.5em;
 }
@@ -32,4 +37,17 @@ li {
 .title-input,
 .desc-input {
   margin-right: 1em;
+}
+
+.projectContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.projectWrapper {
+  flex: 1;
+}
+
+.listAreaWrapper {
+  flex: 1;
 }
