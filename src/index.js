@@ -108,6 +108,23 @@ newProjectDivision.addEventListener("click", () => {
   projectDialog.appendChild(projectDescriptionInput);
   content.appendChild(projectDialog);
 
+  const createProjectBtn = document.createElement("button");
+  createProjectBtn.textContent = "Create Project";
+  projectDialog.appendChild(createProjectBtn);
+
+  createProjectBtn.addEventListener("click", () => {
+    const projectDivision = document.createElement("button");
+    const projectTitle = document.createElement("h2");
+    const projectDescription = document.createElement("p");
+    projectTitle.textContent = defaultProject.title;
+    projectDescription.textContent = defaultProject.description;
+    projectDivision.appendChild(projectTitle);
+    projectDivision.appendChild(projectDescription);
+    content.appendChild(projectDivision);
+
+    projectDialog.close();
+  });
+
   const closeModalBtn = document.createElement("button");
   closeModalBtn.textContent = "Close";
   projectDialog.appendChild(closeModalBtn);
