@@ -1,33 +1,39 @@
 import "./styles.css";
+import { createBaseContent } from "./baseContent.js";
 import { defaultProject } from "./project.js";
+import { createDefaultTasks } from "./defaultTasks.js";
 
-const content = document.getElementById("content");
-const title = document.createElement("h1");
-title.textContent = "TO DO LIST";
+// const content = document.getElementById("content");
+// const title = document.createElement("h1");
+// title.textContent = "TO DO LIST";
 
 // Creating Project
 const projectDivision = document.createElement("button");
+projectDivision.classList.add("projectDivision");
 const projectTitle = document.createElement("h2");
 const projectDescription = document.createElement("p");
 projectTitle.textContent = defaultProject.title;
 projectDescription.textContent = defaultProject.description;
 projectDivision.appendChild(projectTitle);
 projectDivision.appendChild(projectDescription);
-const listArea = document.createElement("ul");
 
-const projectContainer = document.createElement("div");
-projectContainer.classList.add("projectContainer");
-const projectWrapper = document.createElement("div");
-projectWrapper.classList.add("projectWrapper");
-const listAreaWrapper = document.createElement("div");
-listAreaWrapper.classList.add("listAreaWrapper");
+// const listArea = document.createElement("ul");
+// const projectContainer = document.createElement("div");
+// projectContainer.classList.add("projectContainer");
+// const projectWrapper = document.createElement("div");
+// projectWrapper.classList.add("projectWrapper");
+// const listAreaWrapper = document.createElement("div");
+// listAreaWrapper.classList.add("listAreaWrapper");
 
-projectWrapper.appendChild(projectDivision);
-listAreaWrapper.appendChild(listArea);
+const { projectContainer, projectWrapper, listAreaWrapper, listArea } =
+  createBaseContent();
 
-projectContainer.append(projectWrapper, listAreaWrapper);
+// projectWrapper.appendChild(projectDivision);
+// listAreaWrapper.appendChild(listArea);
 
-content.append(title, projectContainer);
+// projectContainer.append(projectWrapper, listAreaWrapper);
+
+// content.appendChild(projectContainer);
 
 // Input and button for adding task
 const addTaskInput = document.createElement("input");
@@ -39,33 +45,7 @@ content.appendChild(addTaskInput);
 content.appendChild(addTaskBtn);
 
 // Creating default task
-let taskItemIndex = 0;
-for (const task of defaultProject.tasks) {
-  taskItemIndex++;
-  const taskItem = document.createElement("li");
-  taskItem.dataset.id = taskItemIndex;
-  // taskItemIndex++;
-  const taskContainer = document.createElement("div");
-  const removeTaskBtn = document.createElement("button");
-  removeTaskBtn.classList.add("remove-btn");
-  removeTaskBtn.textContent = "X";
-  taskContainer.classList.add("taskContainer");
-
-  taskContainer.textContent = task.text;
-  taskContainer.appendChild(removeTaskBtn);
-  taskItem.appendChild(taskContainer);
-  listArea.appendChild(taskItem);
-
-  // Remove task
-  removeTaskBtn.addEventListener("click", (e) => {
-    const listItem = e.target.closest("li");
-    defaultProject.tasks = defaultProject.tasks.filter(
-      (item) => item.id !== Number(listItem.dataset.id)
-    );
-
-    listItem.remove();
-  });
-}
+createDefaultTasks();
 
 // Add task
 addTaskBtn.addEventListener("click", () => {
@@ -124,14 +104,14 @@ newProjectDivision.addEventListener("click", () => {
 
   createProjectBtn.addEventListener("click", () => {
     const projectDivision = document.createElement("button");
+    projectDivision.classList.add("projectDivision");
     const projectTitle = document.createElement("h2");
     const projectDescription = document.createElement("p");
     projectTitle.textContent = defaultProject.title;
     projectDescription.textContent = defaultProject.description;
     projectDivision.appendChild(projectTitle);
     projectDivision.appendChild(projectDescription);
-    content.appendChild(projectDivision);
-
+    projectWrapper.appendChild(projectDivision);
     projectDialog.close();
   });
 
