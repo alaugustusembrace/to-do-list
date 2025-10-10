@@ -3,10 +3,6 @@ import { createBaseContent } from "./baseContent.js";
 import { defaultProject } from "./project.js";
 import { createDefaultTasks } from "./defaultTasks.js";
 
-// const content = document.getElementById("content");
-// const title = document.createElement("h1");
-// title.textContent = "TO DO LIST";
-
 // Creating Project
 const projectDivision = document.createElement("button");
 projectDivision.classList.add("projectDivision");
@@ -17,16 +13,7 @@ projectDescription.textContent = defaultProject.description;
 projectDivision.appendChild(projectTitle);
 projectDivision.appendChild(projectDescription);
 
-// const listArea = document.createElement("ul");
-// const projectContainer = document.createElement("div");
-// projectContainer.classList.add("projectContainer");
-// const projectWrapper = document.createElement("div");
-// projectWrapper.classList.add("projectWrapper");
-// const listAreaWrapper = document.createElement("div");
-// listAreaWrapper.classList.add("listAreaWrapper");
-
-const { projectContainer, projectWrapper, listAreaWrapper, listArea } =
-  createBaseContent();
+const { projectWrapper, listAreaWrapper, listArea } = createBaseContent();
 
 // projectWrapper.appendChild(projectDivision);
 // listAreaWrapper.appendChild(listArea);
@@ -45,7 +32,7 @@ content.appendChild(addTaskInput);
 content.appendChild(addTaskBtn);
 
 // Creating default task
-createDefaultTasks();
+createDefaultTasks(listArea);
 
 // Add task
 addTaskBtn.addEventListener("click", () => {

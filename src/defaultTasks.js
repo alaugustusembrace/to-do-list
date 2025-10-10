@@ -1,9 +1,7 @@
 import { createBaseContent } from "./baseContent.js";
 import { defaultProject } from "./project.js";
 
-const createDefaultTasks = () => {
-  const { listArea } = createBaseContent();
-
+const createDefaultTasks = (listArea) => {
   let taskItemIndex = 0;
   for (const task of defaultProject.tasks) {
     taskItemIndex++;
