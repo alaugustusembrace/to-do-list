@@ -18,4 +18,4 @@ const defaultProject = new Project(
   "A description related to the project"
 );
 
-export { defaultProject };
+export { defaultProject, Project };

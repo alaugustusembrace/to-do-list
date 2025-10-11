@@ -40,7 +40,8 @@ li {
   margin-right: 1em;
 }
 
-.projectDivision {
+.projectDivision,
+.newProjectDivision {
   width: 30%;
 }
 

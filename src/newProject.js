@@ -1,4 +1,11 @@
-const createNewProject = (title, description, projectWrapper) => {
+import { Project } from "./project.js";
+
+const createNewProject = (projectWrapper, listArea) => {
+  const newProjectDivision = document.createElement("button");
+  newProjectDivision.classList.add("newProjectDivision");
+  const projectTitle = document.createElement("h2");
+  const projectDescription = document.createElement("p");
+
   const projectDialog = document.createElement("dialog");
   projectDialog.classList.add("project-dialog");
   const projectTitleInput = document.createElement("input");
@@ -22,16 +29,22 @@ const createNewProject = (title, description, projectWrapper) => {
   projectDialog.appendChild(createProjectBtn);
 
   createProjectBtn.addEventListener("click", () => {
-    const projectDivision = document.createElement("button");
-    projectDivision.classList.add("projectDivision");
-    const projectTitle = document.createElement("h2");
-    const projectDescription = document.createElement("p");
-    projectTitle.textContent = title;
-    projectDescription.textContent = description;
-    projectDivision.appendChild(projectTitle);
-    projectDivision.appendChild(projectDescription);
-    projectWrapper.appendChild(projectDivision);
+    const newProject = new Project(
+      projectTitleInput.value,
+      projectDescriptionInput.value
+    );
+
+    projectTitle.textContent = newProject.title;
+    projectDescription.textContent = newProject.description;
+
+    newProjectDivision.appendChild(projectTitle);
+    newProjectDivision.appendChild(projectDescription);
+    projectWrapper.appendChild(newProjectDivision);
     projectDialog.close();
+
+    newProjectDivision.addEventListener("click", () => {
+      listArea.innerHTML = "";
+    });
   });
 
   const closeModalBtn = document.createElement("button");

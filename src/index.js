@@ -1,7 +1,7 @@
 import "./styles.css";
 import { createBaseContent } from "./baseContent.js";
 import { createDefaultProject } from "./defaultProject.js";
-import { defaultProject } from "./project.js";
+import { defaultProject, Project } from "./project.js";
 import { createDefaultTasks } from "./defaultTasks.js";
 import { addTask } from "./addTask.js";
 import { createNewProject } from "./newProject.js";
@@ -14,6 +14,7 @@ const { projectDivision } = createDefaultProject(
   defaultProject.title,
   defaultProject.description
 );
+
 projectWrapper.appendChild(projectDivision);
 
 // Input and button for adding task
@@ -35,16 +36,12 @@ addTaskBtn.addEventListener("click", () => {
 });
 
 // Create New Project Button
-const newProjectDivision = document.createElement("button");
-newProjectDivision.classList.add("new-project-btn");
-newProjectDivision.textContent = "+ New Project";
-content.appendChild(newProjectDivision);
+const newProjectDivisionBtn = document.createElement("button");
+newProjectDivisionBtn.classList.add("new-project-btn");
+newProjectDivisionBtn.textContent = "+ New Project";
+content.appendChild(newProjectDivisionBtn);
 
 // Create New Project
-newProjectDivision.addEventListener("click", () => {
-  createNewProject(
-    defaultProject.title,
-    defaultProject.description,
-    projectWrapper
-  );
+newProjectDivisionBtn.addEventListener("click", () => {
+  createNewProject(projectWrapper, listArea);
 });
