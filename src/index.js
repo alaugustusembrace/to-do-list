@@ -1,26 +1,18 @@
 import "./styles.css";
 import { createBaseContent } from "./baseContent.js";
+import { createDefaultProject } from "./defaultProject.js";
 import { defaultProject } from "./project.js";
 import { createDefaultTasks } from "./defaultTasks.js";
 
-// Creating Project
-const projectDivision = document.createElement("button");
-projectDivision.classList.add("projectDivision");
-const projectTitle = document.createElement("h2");
-const projectDescription = document.createElement("p");
-projectTitle.textContent = defaultProject.title;
-projectDescription.textContent = defaultProject.description;
-projectDivision.appendChild(projectTitle);
-projectDivision.appendChild(projectDescription);
+const { content, projectContainer, projectWrapper, listAreaWrapper, listArea } =
+  createBaseContent();
 
-const { projectWrapper, listAreaWrapper, listArea } = createBaseContent();
-
-// projectWrapper.appendChild(projectDivision);
-// listAreaWrapper.appendChild(listArea);
-
-// projectContainer.append(projectWrapper, listAreaWrapper);
-
-// content.appendChild(projectContainer);
+// Creating Default Project
+const { projectDivision } = createDefaultProject(
+  defaultProject.title,
+  defaultProject.description
+);
+projectWrapper.appendChild(projectDivision);
 
 // Input and button for adding task
 const addTaskInput = document.createElement("input");

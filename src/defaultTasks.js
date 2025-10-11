@@ -1,4 +1,3 @@
-import { createBaseContent } from "./baseContent.js";
 import { defaultProject } from "./project.js";
 
 const createDefaultTasks = (listArea) => {
