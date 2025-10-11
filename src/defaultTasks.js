@@ -27,6 +27,7 @@ const createDefaultTasks = (listArea) => {
       listItem.remove();
     });
   }
+  return { taskItemIndex };
 };
 
 export { createDefaultTasks };
