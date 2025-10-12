@@ -4,6 +4,9 @@ const createBaseContent = () => {
   const projectContainer = document.createElement("div");
   projectContainer.classList.add("projectContainer");
 
+  const project = document.createElement("div");
+  project.classList.add("project");
+
   const projectWrapper = document.createElement("div");
   projectWrapper.classList.add("projectWrapper");
 
@@ -14,7 +17,8 @@ const createBaseContent = () => {
   listArea.classList.add("listArea");
 
   listAreaWrapper.appendChild(listArea);
-  projectContainer.append(projectWrapper, listAreaWrapper);
+  project.append(projectWrapper, listAreaWrapper);
+  projectContainer.appendChild(project);
   content.appendChild(projectContainer);
 
   return {
