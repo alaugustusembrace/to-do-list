@@ -42,6 +42,7 @@ const createNewProject = (projectWrapper, listArea) => {
     projectWrapper.appendChild(newProjectDivision);
     projectDialog.close();
 
+    // Clearing the listArea
     newProjectDivision.addEventListener("click", () => {
       listArea.innerHTML = "";
     });
