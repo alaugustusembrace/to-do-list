@@ -12,9 +12,9 @@ const { content, projectContainer, projectWrapper, listAreaWrapper, listArea } =
 // Creating Default Project
 const { projectDivision } = createDefaultProject(
   defaultProject.title,
-  defaultProject.description
+  defaultProject.description,
+  listArea
 );
-
 projectWrapper.appendChild(projectDivision);
 
 // Input and button for adding task
