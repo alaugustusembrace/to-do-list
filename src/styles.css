@@ -45,7 +45,7 @@ li {
   width: 30%;
 }
 
-.projectContainer {
+.project {
   display: flex;
   justify-content: space-between;
 }
