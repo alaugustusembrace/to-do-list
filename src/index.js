@@ -13,7 +13,8 @@ const { content, projectContainer, projectWrapper, listAreaWrapper, listArea } =
 const { projectDivision } = createDefaultProject(
   defaultProject.title,
   defaultProject.description,
-  listArea
+  listArea,
+  createDefaultTasks
 );
 projectWrapper.appendChild(projectDivision);
 

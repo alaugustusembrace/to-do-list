@@ -1,6 +1,8 @@
 import { Project } from "./project.js";
 
 const createNewProject = (projectWrapper, listArea) => {
+  let isNewProject = false;
+
   const newProjectDivision = document.createElement("button");
   newProjectDivision.classList.add("newProjectDivision");
   const projectTitle = document.createElement("h2");
@@ -44,7 +46,28 @@ const createNewProject = (projectWrapper, listArea) => {
 
     // Clearing the listArea
     newProjectDivision.addEventListener("click", () => {
+      isNewProject = true;
       listArea.innerHTML = "";
+      newProject.tasks = [
+        { id: 1, text: "Hello" },
+        { id: 2, text: "World" },
+      ];
+      let taskItemIndex = 0;
+      for (const task of newProject.tasks) {
+        taskItemIndex++;
+        const taskItem = document.createElement("li");
+        taskItem.dataset.id = taskItemIndex;
+        const taskContainer = document.createElement("div");
+        const removeTaskBtn = document.createElement("button");
+        removeTaskBtn.classList.add("removeTaskBtn");
+        removeTaskBtn.textContent = "X";
+        taskContainer.classList.add("taskContainer");
+
+        taskContainer.textContent = task.text;
+        taskContainer.appendChild(removeTaskBtn);
+        taskItem.appendChild(taskContainer);
+        listArea.appendChild(taskItem);
+      }
     });
   });
 
