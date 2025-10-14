@@ -1,7 +1,7 @@
-const addTask = (taskItemIndex, defaultProject, inputValue, listArea) => {
+const addTask = (taskItemIndex, currentProject, inputValue, listArea) => {
   const taskItem = document.createElement("li");
   taskItem.dataset.id = taskItemIndex;
-  defaultProject.tasks.push({ id: taskItemIndex, text: inputValue });
+  currentProject.tasks.push({ id: taskItemIndex, text: inputValue });
   const taskContainer = document.createElement("div");
   const removeTaskBtn = document.createElement("button");
   removeTaskBtn.textContent = "X";
@@ -14,10 +14,9 @@ const addTask = (taskItemIndex, defaultProject, inputValue, listArea) => {
   // Remove task
   removeTaskBtn.addEventListener("click", (e) => {
     const listItem = e.target.closest("li");
-    defaultProject.tasks = defaultProject.tasks.filter(
+    currentProject.tasks = currentProject.tasks.filter(
       (item) => item.id !== Number(listItem.dataset.id)
     );
-
     listItem.remove();
   });
 };

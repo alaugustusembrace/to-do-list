@@ -1,8 +1,8 @@
 import { Project } from "./project.js";
+import { createTaskInputAndBtn } from "./addTaskInputAndButton.js";
+import { addTask } from "./addTask.js";
 
 const createNewProject = (projectWrapper, listArea) => {
-  let isNewProject = false;
-
   const newProjectDivision = document.createElement("button");
   newProjectDivision.classList.add("newProjectDivision");
   const projectTitle = document.createElement("h2");
@@ -25,19 +25,20 @@ const createNewProject = (projectWrapper, listArea) => {
   projectDialog.appendChild(projectTitleInput);
   projectDialog.appendChild(projectDescriptionInput);
   content.appendChild(projectDialog);
+  projectDialog.showModal();
 
   const createProjectBtn = document.createElement("button");
   createProjectBtn.textContent = "Create Project";
   projectDialog.appendChild(createProjectBtn);
 
   createProjectBtn.addEventListener("click", () => {
-    const newProject = new Project(
+    const currentProject = new Project(
       projectTitleInput.value,
       projectDescriptionInput.value
     );
 
-    projectTitle.textContent = newProject.title;
-    projectDescription.textContent = newProject.description;
+    projectTitle.textContent = currentProject.title;
+    projectDescription.textContent = currentProject.description;
 
     newProjectDivision.appendChild(projectTitle);
     newProjectDivision.appendChild(projectDescription);
@@ -45,15 +46,13 @@ const createNewProject = (projectWrapper, listArea) => {
     projectDialog.close();
 
     // Clearing the listArea
+    let clickCounter = 0;
     newProjectDivision.addEventListener("click", () => {
-      isNewProject = true;
+      clickCounter++;
       listArea.innerHTML = "";
-      newProject.tasks = [
-        { id: 1, text: "Hello" },
-        { id: 2, text: "World" },
-      ];
       let taskItemIndex = 0;
-      for (const task of newProject.tasks) {
+      // currentProject.tasks = [];
+      for (const task of currentProject.tasks) {
         taskItemIndex++;
         const taskItem = document.createElement("li");
         taskItem.dataset.id = taskItemIndex;
@@ -67,6 +66,24 @@ const createNewProject = (projectWrapper, listArea) => {
         taskContainer.appendChild(removeTaskBtn);
         taskItem.appendChild(taskContainer);
         listArea.appendChild(taskItem);
+
+        // Remove task
+        removeTaskBtn.addEventListener("click", (e) => {
+          const listItem = e.target.closest("li");
+          currentProject.tasks = currentProject.tasks.filter(
+            (item) => item.id !== Number(listItem.dataset.id)
+          );
+          listItem.remove();
+        });
+      }
+      if (clickCounter === 1) {
+        const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
+        addTaskBtn.addEventListener("click", () => {
+          taskItemIndex++;
+          addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);
+        });
+      } else {
+        null;
       }
     });
   });
@@ -78,8 +95,6 @@ const createNewProject = (projectWrapper, listArea) => {
   closeModalBtn.addEventListener("click", () => {
     projectDialog.close();
   });
-
-  projectDialog.showModal();
 };
 
 export { createNewProject };
