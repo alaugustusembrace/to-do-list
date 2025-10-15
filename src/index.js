@@ -12,6 +12,12 @@ const { content, projectContainer, projectWrapper, listAreaWrapper, listArea } =
 // Creating Default Tasks
 let { taskItemIndex } = createDefaultTasks(listArea);
 
+// Create New Project Button
+const newProjectDivisionBtn = document.createElement("button");
+newProjectDivisionBtn.classList.add("new-project-btn");
+newProjectDivisionBtn.textContent = "+ New Project";
+content.appendChild(newProjectDivisionBtn);
+
 // Creating Default Project
 const { projectDivision } = createDefaultProject(
   taskItemIndex,
@@ -40,12 +46,6 @@ projectWrapper.appendChild(projectDivision);
 //   taskItemIndex++;
 //   addTask(taskItemIndex, defaultProject, addTaskInput.value, listArea);
 // });
-
-// Create New Project Button
-const newProjectDivisionBtn = document.createElement("button");
-newProjectDivisionBtn.classList.add("new-project-btn");
-newProjectDivisionBtn.textContent = "+ New Project";
-content.appendChild(newProjectDivisionBtn);
 
 // Create New Project
 newProjectDivisionBtn.addEventListener("click", () => {

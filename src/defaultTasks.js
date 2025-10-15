@@ -12,7 +12,7 @@ const createDefaultTasks = (listArea) => {
     removeTaskBtn.textContent = "X";
     taskContainer.classList.add("taskContainer");
 
-    taskContainer.textContent = task.text;
+    taskContainer.textContent = task.title;
     taskContainer.appendChild(removeTaskBtn);
     taskItem.appendChild(taskContainer);
     listArea.appendChild(taskItem);

@@ -1,7 +1,7 @@
 const addTask = (taskItemIndex, currentProject, inputValue, listArea) => {
   const taskItem = document.createElement("li");
   taskItem.dataset.id = taskItemIndex;
-  currentProject.tasks.push({ id: taskItemIndex, text: inputValue });
+  currentProject.tasks.push({ id: taskItemIndex, title: inputValue });
   const taskContainer = document.createElement("div");
   const removeTaskBtn = document.createElement("button");
   removeTaskBtn.textContent = "X";

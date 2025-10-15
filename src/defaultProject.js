@@ -22,6 +22,13 @@ const createDefaultProject = (
   projectDivision.appendChild(projectTitle);
   projectDivision.appendChild(projectDescription);
 
+  const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
+
+  addTaskBtn.addEventListener("click", () => {
+    taskItemIndex++;
+    addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);
+  });
+
   // Clearing the listArea then Assigning its respective lists
   let clickCounter = 0;
   projectDivision.addEventListener("click", () => {
@@ -44,7 +51,7 @@ const createDefaultProject = (
       removeTaskBtn.textContent = "X";
       taskContainer.classList.add("taskContainer");
 
-      taskContainer.textContent = task.text;
+      taskContainer.textContent = task.title;
       taskContainer.appendChild(removeTaskBtn);
       taskItem.appendChild(taskContainer);
       listArea.appendChild(taskItem);
