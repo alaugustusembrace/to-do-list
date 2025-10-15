@@ -9,6 +9,7 @@ import { createNewProject } from "./newProject.js";
 const { content, projectContainer, projectWrapper, listAreaWrapper, listArea } =
   createBaseContent();
 
+// Creating Default Tasks
 let { taskItemIndex } = createDefaultTasks(listArea);
 
 // Creating Default Project

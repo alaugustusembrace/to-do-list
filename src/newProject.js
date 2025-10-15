@@ -45,13 +45,18 @@ const createNewProject = (projectWrapper, listArea) => {
     projectWrapper.appendChild(newProjectDivision);
     projectDialog.close();
 
-    // Clearing the listArea
+    // Clearing the listArea for new project
     let clickCounter = 0;
     newProjectDivision.addEventListener("click", () => {
-      clickCounter++;
       listArea.innerHTML = "";
+
+      const oldWrapper = document.querySelector(".taskInputWrapper");
+      if (oldWrapper) oldWrapper.remove();
+
+      const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
+
       let taskItemIndex = 0;
-      // currentProject.tasks = [];
+
       for (const task of currentProject.tasks) {
         taskItemIndex++;
         const taskItem = document.createElement("li");
@@ -76,15 +81,11 @@ const createNewProject = (projectWrapper, listArea) => {
           listItem.remove();
         });
       }
-      if (clickCounter === 1) {
-        const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
-        addTaskBtn.addEventListener("click", () => {
-          taskItemIndex++;
-          addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);
-        });
-      } else {
-        null;
-      }
+
+      addTaskBtn.addEventListener("click", () => {
+        taskItemIndex++;
+        addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);
+      });
     });
   });
 

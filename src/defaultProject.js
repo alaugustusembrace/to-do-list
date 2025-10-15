@@ -25,10 +25,15 @@ const createDefaultProject = (
   // Clearing the listArea then Assigning its respective lists
   let clickCounter = 0;
   projectDivision.addEventListener("click", () => {
-    clickCounter++;
     listArea.innerHTML = "";
-    // defaultTasks(listArea);
+
+    const oldWrapper = document.querySelector(".taskInputWrapper");
+    if (oldWrapper) oldWrapper.remove();
+
+    const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
+
     let taskItemIndex = 0;
+
     for (const task of currentProject.tasks) {
       taskItemIndex++;
       const taskItem = document.createElement("li");
@@ -54,15 +59,11 @@ const createDefaultProject = (
         listItem.remove();
       });
     }
-    if (clickCounter === 1) {
-      const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
-      addTaskBtn.addEventListener("click", () => {
-        taskItemIndex++;
-        addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);
-      });
-    } else {
-      null;
-    }
+
+    addTaskBtn.addEventListener("click", () => {
+      taskItemIndex++;
+      addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);
+    });
   });
 
   return { projectDivision };
