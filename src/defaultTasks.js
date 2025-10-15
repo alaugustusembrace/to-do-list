@@ -7,14 +7,26 @@ const createDefaultTasks = (listArea) => {
     const taskItem = document.createElement("li");
     taskItem.dataset.id = taskItemIndex;
     const taskContainer = document.createElement("div");
+    taskContainer.classList.add("taskContainer");
+
+    const taskBtnWrapper = document.createElement("div");
+    taskBtnWrapper.classList.add("taskBtnWrapper");
+
+    const checkTaskBtn = document.createElement("input");
+    checkTaskBtn.classList.add("check-btn");
+    checkTaskBtn.type = "checkbox";
+
     const removeTaskBtn = document.createElement("button");
     removeTaskBtn.classList.add("remove-btn");
     removeTaskBtn.textContent = "X";
-    taskContainer.classList.add("taskContainer");
+
+    taskBtnWrapper.append(checkTaskBtn, removeTaskBtn);
 
     taskContainer.textContent = task.title;
-    taskContainer.appendChild(removeTaskBtn);
+    taskContainer.appendChild(taskBtnWrapper);
+
     taskItem.appendChild(taskContainer);
+
     listArea.appendChild(taskItem);
 
     // Remove task
