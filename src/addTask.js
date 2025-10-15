@@ -3,12 +3,26 @@ const addTask = (taskItemIndex, currentProject, inputValue, listArea) => {
   taskItem.dataset.id = taskItemIndex;
   currentProject.tasks.push({ id: taskItemIndex, title: inputValue });
   const taskContainer = document.createElement("div");
-  const removeTaskBtn = document.createElement("button");
-  removeTaskBtn.textContent = "X";
   taskContainer.classList.add("taskContainer");
+
+  const taskBtnWrapper = document.createElement("div");
+  taskBtnWrapper.classList.add("taskBtnWrapper");
+
+  const checkTaskBtn = document.createElement("input");
+  checkTaskBtn.classList.add("check-btn");
+  checkTaskBtn.type = "checkbox";
+
+  const removeTaskBtn = document.createElement("button");
+  removeTaskBtn.classList.add("remove-btn");
+  removeTaskBtn.textContent = "X";
+
+  taskBtnWrapper.append(checkTaskBtn, removeTaskBtn);
+
   taskContainer.textContent = inputValue;
-  taskContainer.appendChild(removeTaskBtn);
+  taskContainer.appendChild(taskBtnWrapper);
+
   taskItem.appendChild(taskContainer);
+
   listArea.appendChild(taskItem);
 
   // Remove task
