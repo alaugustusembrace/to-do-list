@@ -59,3 +59,8 @@ li {
 .listAreaWrapper {
   flex: 1;
 }
+
+.taskWrapper {
+  display: flex;
+  justify-content: space-between;
+}
