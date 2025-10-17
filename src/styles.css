@@ -64,3 +64,9 @@ li {
   display: flex;
   justify-content: space-between;
 }
+
+.taskBtnWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

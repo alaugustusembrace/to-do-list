@@ -37,6 +37,12 @@ const createDefaultTasks = (listArea) => {
     const taskBtnWrapper = document.createElement("div");
     taskBtnWrapper.classList.add("taskBtnWrapper");
 
+    const checkAndRemoveBtnWrapper = document.createElement("div");
+    checkAndRemoveBtnWrapper.classList.add("checkAndRemoveBtnWrapper");
+
+    const editWrapper = document.createElement("div");
+    editWrapper.classList.add("editWrapper");
+
     const checkTaskBtn = document.createElement("input");
     checkTaskBtn.classList.add("check-btn");
     checkTaskBtn.type = "checkbox";
@@ -45,12 +51,20 @@ const createDefaultTasks = (listArea) => {
     removeTaskBtn.classList.add("remove-btn");
     removeTaskBtn.textContent = "X";
 
+    const editButton = document.createElement("button");
+    editButton.classList.add("editButton");
+    editButton.textContent = "edit";
+
+    editWrapper.appendChild(editButton);
+
+    checkAndRemoveBtnWrapper.append(checkTaskBtn, removeTaskBtn);
+
     taskTitleAndDescWrapper.append(taskTitle, taskDescription);
     taskDateAndPriorityWrapper.append(taskDate, taskPriority);
 
     taskWrapper.append(taskTitleAndDescWrapper, taskDateAndPriorityWrapper);
 
-    taskBtnWrapper.append(checkTaskBtn, removeTaskBtn);
+    taskBtnWrapper.append(checkAndRemoveBtnWrapper, editWrapper);
 
     taskContainer.append(taskWrapper, taskBtnWrapper);
 
