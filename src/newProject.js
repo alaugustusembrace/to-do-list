@@ -82,6 +82,7 @@ const createNewProject = (projectWrapper, listArea) => {
         });
       }
 
+      // Add task
       addTaskBtn.addEventListener("click", () => {
         taskItemIndex++;
         addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);

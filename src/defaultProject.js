@@ -24,8 +24,61 @@ const createDefaultProject = (
 
   const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
 
+  // Add task
   addTaskBtn.addEventListener("click", () => {
     taskItemIndex++;
+
+    const taskDialog = document.createElement("dialog");
+    taskDialog.classList.add("taskDialog");
+
+    const taskHeader = document.createElement("h2");
+    taskHeader.classList.add("taskHeader");
+    taskHeader.textContent = "Add Task";
+
+    const dialogTaskTitle = document.createElement("input");
+    dialogTaskTitle.classList.add("dialogTaskTitle");
+    dialogTaskTitle.placeholder = "Task Title";
+
+    const dialogTaskDescription = document.createElement("textarea");
+    dialogTaskDescription.classList.add("dialogTaskDescription");
+    dialogTaskDescription.placeholder = "Task Description...";
+
+    const dialogTaskDueDate = document.createElement("p");
+    dialogTaskDueDate.classList.add("dialogTaskDueDate");
+    dialogTaskDueDate.textContent = currentProject.dueDate;
+
+    const dialogTaskPriority = document.createElement("input");
+    dialogTaskPriority.classList.add("dialogTaskPriority");
+    dialogTaskPriority.placeholder = "Task Priority (1, 2, 3):";
+
+    const submitTaskModalBtn = document.createElement("button");
+    submitTaskModalBtn.classList.add("submitTaskModalBtn");
+    submitTaskModalBtn.textContent = "Submit";
+
+    const closeTaskModalBtn = document.createElement("button");
+    closeTaskModalBtn.classList.add("closeTaskModalBtn");
+    closeTaskModalBtn.textContent = "Close";
+
+    taskDialog.append(
+      taskHeader,
+      dialogTaskTitle,
+      dialogTaskDescription,
+      dialogTaskDueDate,
+      dialogTaskPriority,
+      submitTaskModalBtn,
+      closeTaskModalBtn
+    );
+    content.appendChild(taskDialog);
+    taskDialog.showModal();
+
+    submitTaskModalBtn.addEventListener("click", () => {
+      taskDialog.close();
+    });
+
+    closeTaskModalBtn.addEventListener("click", () => {
+      taskDialog.close();
+    });
+
     addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);
   });
 

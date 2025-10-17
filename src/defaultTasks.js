@@ -32,7 +32,7 @@ const createDefaultTasks = (listArea) => {
 
     const taskPriority = document.createElement("p");
     taskDate.classList.add("taskPriority");
-    taskPriority.textContent = task.priority;
+    taskPriority.textContent = "Priority: " + task.priority;
 
     const taskBtnWrapper = document.createElement("div");
     taskBtnWrapper.classList.add("taskBtnWrapper");
