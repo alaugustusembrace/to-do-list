@@ -45,11 +45,11 @@ const createDefaultProject = (
 
     const dialogTaskDueDate = document.createElement("p");
     dialogTaskDueDate.classList.add("dialogTaskDueDate");
-    dialogTaskDueDate.textContent = currentProject.dueDate;
+    dialogTaskDueDate.textContent = currentProject.tasks[1].dueDate;
 
     const dialogTaskPriority = document.createElement("input");
     dialogTaskPriority.classList.add("dialogTaskPriority");
-    dialogTaskPriority.placeholder = "Task Priority (1, 2, 3):";
+    dialogTaskPriority.placeholder = "Task Priority (1, 2, 3)";
 
     const submitTaskModalBtn = document.createElement("button");
     submitTaskModalBtn.classList.add("submitTaskModalBtn");
@@ -59,14 +59,29 @@ const createDefaultProject = (
     closeTaskModalBtn.classList.add("closeTaskModalBtn");
     closeTaskModalBtn.textContent = "Close";
 
+    const taskTitleAndPriorityWrapper = document.createElement("div");
+    taskTitleAndPriorityWrapper.classList.add("taskTitleAndPriorityWrapper");
+
+    const taskDescriptionAndDateWrapper = document.createElement("div");
+    taskDescriptionAndDateWrapper.classList.add(
+      "taskDescriptionAndDateWrapper"
+    );
+
+    const submitAndCloseBtnWrapper = document.createElement("div");
+    submitAndCloseBtnWrapper.classList.add("submitAndCloseBtnWrapper");
+
+    taskTitleAndPriorityWrapper.append(dialogTaskTitle, dialogTaskPriority);
+    taskDescriptionAndDateWrapper.append(
+      dialogTaskDescription,
+      dialogTaskDueDate
+    );
+    submitAndCloseBtnWrapper.append(submitTaskModalBtn, closeTaskModalBtn);
+
     taskDialog.append(
       taskHeader,
-      dialogTaskTitle,
-      dialogTaskDescription,
-      dialogTaskDueDate,
-      dialogTaskPriority,
-      submitTaskModalBtn,
-      closeTaskModalBtn
+      taskTitleAndPriorityWrapper,
+      taskDescriptionAndDateWrapper,
+      submitAndCloseBtnWrapper
     );
     content.appendChild(taskDialog);
     taskDialog.showModal();
@@ -98,15 +113,71 @@ const createDefaultProject = (
       taskItemIndex++;
       const taskItem = document.createElement("li");
       taskItem.dataset.id = taskItemIndex;
+
       const taskContainer = document.createElement("div");
+      taskContainer.classList.add("taskContainer");
+
+      const taskWrapper = document.createElement("div");
+      taskWrapper.classList.add("taskWrapper");
+
+      const taskTitleAndDescWrapper = document.createElement("div");
+      taskTitleAndDescWrapper.classList.add("taskTitleAndDescWrapper");
+
+      const taskDateAndPriorityWrapper = document.createElement("div");
+      taskDateAndPriorityWrapper.classList.add("taskDateAndPriorityWrapper");
+
+      const taskBtnWrapper = document.createElement("div");
+      taskBtnWrapper.classList.add("taskBtnWrapper");
+
+      const checkAndRemoveBtnWrapper = document.createElement("div");
+      checkAndRemoveBtnWrapper.classList.add("checkAndRemoveBtnWrapper");
+
+      const editWrapper = document.createElement("div");
+      editWrapper.classList.add("editWrapper");
+
+      const taskTitle = document.createElement("h4");
+      taskTitle.classList.add("taskTitle");
+      taskTitle.textContent = task.title;
+
+      const taskDescription = document.createElement("p");
+      taskDescription.classList.add("taskDescription");
+      taskDescription.textContent = task.description;
+
+      const taskDate = document.createElement("p");
+      taskDate.classList.add("taskDate");
+      taskDate.textContent = task.dueDate;
+
+      const taskPriority = document.createElement("p");
+      taskDate.classList.add("taskPriority");
+      taskPriority.textContent = "Priority: " + task.priority;
+
+      const checkTaskBtn = document.createElement("input");
+      checkTaskBtn.classList.add("check-btn");
+      checkTaskBtn.type = "checkbox";
+
       const removeTaskBtn = document.createElement("button");
       removeTaskBtn.classList.add("remove-btn");
       removeTaskBtn.textContent = "X";
-      taskContainer.classList.add("taskContainer");
 
-      taskContainer.textContent = task.title;
-      taskContainer.appendChild(removeTaskBtn);
+      const editButton = document.createElement("button");
+      editButton.classList.add("editButton");
+      editButton.textContent = "edit";
+
+      checkAndRemoveBtnWrapper.append(checkTaskBtn, removeTaskBtn);
+
+      editWrapper.appendChild(editButton);
+
+      taskBtnWrapper.append(checkAndRemoveBtnWrapper, editWrapper);
+
+      taskTitleAndDescWrapper.append(taskTitle, taskDescription);
+      taskDateAndPriorityWrapper.append(taskDate, taskPriority);
+
+      taskWrapper.append(taskTitleAndDescWrapper, taskDateAndPriorityWrapper);
+
+      taskContainer.append(taskWrapper, taskBtnWrapper);
+
       taskItem.appendChild(taskContainer);
+
       listArea.appendChild(taskItem);
 
       // Remove task

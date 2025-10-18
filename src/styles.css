@@ -70,3 +70,14 @@ li {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.taskDescriptionAndDateWrapper,
+.taskTitleAndPriorityWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submitAndCloseBtnWrapper {
+  display: flex;
+  justify-content: space-around;
+}
