@@ -28,7 +28,7 @@ const createDefaultTasks = (listArea) => {
 
     const taskDate = document.createElement("p");
     taskDate.classList.add("taskDate");
-    taskDate.textContent = task.dueDate;
+    taskDate.textContent = "Due Date: " + task.dueDate;
 
     const taskPriority = document.createElement("p");
     taskDate.classList.add("taskPriority");

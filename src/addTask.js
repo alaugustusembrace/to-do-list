@@ -1,3 +1,5 @@
+import { parseISO, format } from "date-fns";
+
 const addTask = (
   taskItemIndex,
   currentProject /* , inputValue */,
@@ -37,9 +39,13 @@ const addTask = (
   taskDescription.classList.add("taskDescription");
   taskDescription.textContent = taskDescriptionValue;
 
+  // const isoDate = taskDateValue;
+  // const newDate = parseISO(isoDate);
+  // const formattedTaskDateValue = format(newDate, "MMMM dd, yyyy");
+
   const taskDate = document.createElement("p");
   taskDate.classList.add("taskDate");
-  taskDate.textContent = taskDateValue;
+  taskDate.textContent = "Due Date: " + taskDateValue;
 
   const taskPriority = document.createElement("p");
   taskDate.classList.add("taskPriority");

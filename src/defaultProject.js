@@ -1,6 +1,7 @@
 // import { createDefaultTasks } from "./defaultTasks.js";
 import { createTaskInputAndBtn } from "./addTaskInputAndButton.js";
 import { addTask } from "./addTask.js";
+import { parseISO, format } from "date-fns";
 
 // const defaultTasks = createDefaultTasks;
 
@@ -41,9 +42,9 @@ const createDefaultProject = (
     dialogTaskDescription.classList.add("dialogTaskDescription");
     dialogTaskDescription.placeholder = "Task Description...";
 
-    const dialogTaskDueDate = document.createElement("p");
+    const dialogTaskDueDate = document.createElement("input");
     dialogTaskDueDate.classList.add("dialogTaskDueDate");
-    dialogTaskDueDate.textContent = currentProject.tasks[1].dueDate;
+    dialogTaskDueDate.type = "date";
 
     const dialogTaskPriority = document.createElement("input");
     dialogTaskPriority.classList.add("dialogTaskPriority");
@@ -93,7 +94,7 @@ const createDefaultProject = (
         listArea,
         dialogTaskTitle.value,
         dialogTaskDescription.value,
-        currentProject.tasks[1].dueDate,
+        dialogTaskDueDate.value,
         dialogTaskPriority.value
       );
 
@@ -106,7 +107,6 @@ const createDefaultProject = (
   });
 
   // Clearing the listArea then Assigning its respective lists
-  let clickCounter = 0;
   projectDivision.addEventListener("click", () => {
     listArea.innerHTML = "";
 
@@ -153,7 +153,7 @@ const createDefaultProject = (
 
       const taskDate = document.createElement("p");
       taskDate.classList.add("taskDate");
-      taskDate.textContent = task.dueDate;
+      taskDate.textContent = "Due Date: " + task.dueDate;
 
       const taskPriority = document.createElement("p");
       taskDate.classList.add("taskPriority");
@@ -215,9 +215,9 @@ const createDefaultProject = (
       dialogTaskDescription.classList.add("dialogTaskDescription");
       dialogTaskDescription.placeholder = "Task Description...";
 
-      const dialogTaskDueDate = document.createElement("p");
+      const dialogTaskDueDate = document.createElement("input");
       dialogTaskDueDate.classList.add("dialogTaskDueDate");
-      dialogTaskDueDate.textContent = currentProject.tasks[1].dueDate;
+      dialogTaskDueDate.type = "date";
 
       const dialogTaskPriority = document.createElement("input");
       dialogTaskPriority.classList.add("dialogTaskPriority");
@@ -261,13 +261,17 @@ const createDefaultProject = (
       submitTaskModalBtn.addEventListener("click", () => {
         taskItemIndex++;
 
+        const isoDate = dialogTaskDueDate.value;
+        const newDate = parseISO(isoDate);
+        const formattedTaskDate = format(newDate, "MMMM dd, yyyy");
+
         addTask(
           taskItemIndex,
           currentProject /* , addTaskInput.value */,
           listArea,
           dialogTaskTitle.value,
           dialogTaskDescription.value,
-          currentProject.tasks[1].dueDate,
+          formattedTaskDate,
           dialogTaskPriority.value
         );
 

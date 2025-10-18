@@ -5,6 +5,7 @@ import { defaultProject, Project } from "./project.js";
 import { createDefaultTasks } from "./defaultTasks.js";
 import { addTask } from "./addTask.js";
 import { createNewProject } from "./newProject.js";
+import { format } from "date-fns";
 
 const { content, projectContainer, projectWrapper, listAreaWrapper, listArea } =
   createBaseContent();
