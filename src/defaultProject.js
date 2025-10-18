@@ -22,12 +22,10 @@ const createDefaultProject = (
   projectDivision.appendChild(projectTitle);
   projectDivision.appendChild(projectDescription);
 
-  const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
+  const { addTaskBtn /* , addTaskInput */ } = createTaskInputAndBtn(content);
 
   // Add task
   addTaskBtn.addEventListener("click", () => {
-    taskItemIndex++;
-
     const taskDialog = document.createElement("dialog");
     taskDialog.classList.add("taskDialog");
 
@@ -87,14 +85,24 @@ const createDefaultProject = (
     taskDialog.showModal();
 
     submitTaskModalBtn.addEventListener("click", () => {
+      taskItemIndex++;
+
+      addTask(
+        taskItemIndex,
+        currentProject /* , addTaskInput.value */,
+        listArea,
+        dialogTaskTitle.value,
+        dialogTaskDescription.value,
+        currentProject.tasks[1].dueDate,
+        dialogTaskPriority.value
+      );
+
       taskDialog.close();
     });
 
     closeTaskModalBtn.addEventListener("click", () => {
       taskDialog.close();
     });
-
-    addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);
   });
 
   // Clearing the listArea then Assigning its respective lists
@@ -135,7 +143,7 @@ const createDefaultProject = (
       const editWrapper = document.createElement("div");
       editWrapper.classList.add("editWrapper");
 
-      const taskTitle = document.createElement("h4");
+      const taskTitle = document.createElement("h3");
       taskTitle.classList.add("taskTitle");
       taskTitle.textContent = task.title;
 
@@ -192,8 +200,83 @@ const createDefaultProject = (
     }
 
     addTaskBtn.addEventListener("click", () => {
-      taskItemIndex++;
-      addTask(taskItemIndex, currentProject, addTaskInput.value, listArea);
+      const taskDialog = document.createElement("dialog");
+      taskDialog.classList.add("taskDialog");
+
+      const taskHeader = document.createElement("h2");
+      taskHeader.classList.add("taskHeader");
+      taskHeader.textContent = "Add Task";
+
+      const dialogTaskTitle = document.createElement("input");
+      dialogTaskTitle.classList.add("dialogTaskTitle");
+      dialogTaskTitle.placeholder = "Task Title";
+
+      const dialogTaskDescription = document.createElement("textarea");
+      dialogTaskDescription.classList.add("dialogTaskDescription");
+      dialogTaskDescription.placeholder = "Task Description...";
+
+      const dialogTaskDueDate = document.createElement("p");
+      dialogTaskDueDate.classList.add("dialogTaskDueDate");
+      dialogTaskDueDate.textContent = currentProject.tasks[1].dueDate;
+
+      const dialogTaskPriority = document.createElement("input");
+      dialogTaskPriority.classList.add("dialogTaskPriority");
+      dialogTaskPriority.placeholder = "Task Priority (1, 2, 3)";
+
+      const submitTaskModalBtn = document.createElement("button");
+      submitTaskModalBtn.classList.add("submitTaskModalBtn");
+      submitTaskModalBtn.textContent = "Submit";
+
+      const closeTaskModalBtn = document.createElement("button");
+      closeTaskModalBtn.classList.add("closeTaskModalBtn");
+      closeTaskModalBtn.textContent = "Close";
+
+      const taskTitleAndPriorityWrapper = document.createElement("div");
+      taskTitleAndPriorityWrapper.classList.add("taskTitleAndPriorityWrapper");
+
+      const taskDescriptionAndDateWrapper = document.createElement("div");
+      taskDescriptionAndDateWrapper.classList.add(
+        "taskDescriptionAndDateWrapper"
+      );
+
+      const submitAndCloseBtnWrapper = document.createElement("div");
+      submitAndCloseBtnWrapper.classList.add("submitAndCloseBtnWrapper");
+
+      taskTitleAndPriorityWrapper.append(dialogTaskTitle, dialogTaskPriority);
+      taskDescriptionAndDateWrapper.append(
+        dialogTaskDescription,
+        dialogTaskDueDate
+      );
+      submitAndCloseBtnWrapper.append(submitTaskModalBtn, closeTaskModalBtn);
+
+      taskDialog.append(
+        taskHeader,
+        taskTitleAndPriorityWrapper,
+        taskDescriptionAndDateWrapper,
+        submitAndCloseBtnWrapper
+      );
+      content.appendChild(taskDialog);
+      taskDialog.showModal();
+
+      submitTaskModalBtn.addEventListener("click", () => {
+        taskItemIndex++;
+
+        addTask(
+          taskItemIndex,
+          currentProject /* , addTaskInput.value */,
+          listArea,
+          dialogTaskTitle.value,
+          dialogTaskDescription.value,
+          currentProject.tasks[1].dueDate,
+          dialogTaskPriority.value
+        );
+
+        taskDialog.close();
+      });
+
+      closeTaskModalBtn.addEventListener("click", () => {
+        taskDialog.close();
+      });
     });
   });
 

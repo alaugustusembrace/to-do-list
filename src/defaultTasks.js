@@ -15,7 +15,7 @@ const createDefaultTasks = (listArea) => {
     const taskTitleAndDescWrapper = document.createElement("div");
     taskTitleAndDescWrapper.classList.add("taskTitleAndDescWrapper");
 
-    const taskTitle = document.createElement("h4");
+    const taskTitle = document.createElement("h3");
     taskTitle.classList.add("taskTitle");
     taskTitle.textContent = task.title;
 

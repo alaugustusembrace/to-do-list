@@ -1,12 +1,55 @@
-const addTask = (taskItemIndex, currentProject, inputValue, listArea) => {
+const addTask = (
+  taskItemIndex,
+  currentProject /* , inputValue */,
+  listArea,
+  taskTitleValue,
+  taskDescriptionValue,
+  taskDateValue,
+  taskPriorityValue
+) => {
   const taskItem = document.createElement("li");
   taskItem.dataset.id = taskItemIndex;
-  currentProject.tasks.push({ id: taskItemIndex, title: inputValue });
+  currentProject.tasks.push({
+    id: taskItemIndex,
+    title: taskTitleValue,
+    description: taskDescriptionValue,
+    dueDate: taskDateValue,
+    priority: taskPriorityValue,
+  });
+
   const taskContainer = document.createElement("div");
   taskContainer.classList.add("taskContainer");
 
+  const taskWrapper = document.createElement("div");
+  taskWrapper.classList.add("taskWrapper");
+
+  const taskTitleAndDescWrapper = document.createElement("div");
+  taskTitleAndDescWrapper.classList.add("taskTitleAndDescWrapper");
+
+  const taskDateAndPriorityWrapper = document.createElement("div");
+  taskDateAndPriorityWrapper.classList.add("taskDateAndPriorityWrapper");
+
+  const taskTitle = document.createElement("h3");
+  taskTitle.classList.add("taskTitle");
+  taskTitle.textContent = taskTitleValue;
+
+  const taskDescription = document.createElement("p");
+  taskDescription.classList.add("taskDescription");
+  taskDescription.textContent = taskDescriptionValue;
+
+  const taskDate = document.createElement("p");
+  taskDate.classList.add("taskDate");
+  taskDate.textContent = taskDateValue;
+
+  const taskPriority = document.createElement("p");
+  taskDate.classList.add("taskPriority");
+  taskPriority.textContent = "Priority: " + taskPriorityValue;
+
   const taskBtnWrapper = document.createElement("div");
   taskBtnWrapper.classList.add("taskBtnWrapper");
+
+  const checkAndRemoveBtnWrapper = document.createElement("div");
+  checkAndRemoveBtnWrapper.classList.add("checkAndRemoveBtnWrapper");
 
   const checkTaskBtn = document.createElement("input");
   checkTaskBtn.classList.add("check-btn");
@@ -16,10 +59,25 @@ const addTask = (taskItemIndex, currentProject, inputValue, listArea) => {
   removeTaskBtn.classList.add("remove-btn");
   removeTaskBtn.textContent = "X";
 
-  taskBtnWrapper.append(checkTaskBtn, removeTaskBtn);
+  const editWrapper = document.createElement("div");
+  editWrapper.classList.add("editWrapper");
 
-  taskContainer.textContent = inputValue;
-  taskContainer.appendChild(taskBtnWrapper);
+  const editButton = document.createElement("button");
+  editButton.classList.add("editButton");
+  editButton.textContent = "Edit";
+
+  checkAndRemoveBtnWrapper.append(checkTaskBtn, removeTaskBtn);
+
+  editWrapper.appendChild(editButton);
+
+  taskBtnWrapper.append(checkAndRemoveBtnWrapper, editWrapper);
+
+  taskTitleAndDescWrapper.append(taskTitle, taskDescription);
+  taskDateAndPriorityWrapper.append(taskDate, taskPriority);
+
+  taskWrapper.append(taskTitleAndDescWrapper, taskDateAndPriorityWrapper);
+
+  taskContainer.append(taskWrapper, taskBtnWrapper);
 
   taskItem.appendChild(taskContainer);
 
