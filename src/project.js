@@ -14,7 +14,7 @@ class Project {
           {
             id: 1,
             title: "Study",
-            description: "Study properly for 1 hour",
+            description: "Study straight for 1 hour",
             dueDate: format(studyDueDate, "MMMM dd, yyyy"),
             priority: 1,
           },
@@ -52,7 +52,7 @@ class Project {
 }
 
 const defaultProject = new Project(
-  "Project",
+  "Routine",
   "A description related to the project",
   true
 );

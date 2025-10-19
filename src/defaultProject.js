@@ -1,18 +1,15 @@
-// import { createDefaultTasks } from "./defaultTasks.js";
 import { createTaskInputAndBtn } from "./addTaskInputAndButton.js";
 import { addTask } from "./addTask.js";
 import { parseISO, format } from "date-fns";
 
-// const defaultTasks = createDefaultTasks;
-
-// added content parameter 10/14/2025 7:17AM
 const createDefaultProject = (
   taskItemIndex,
   title,
   description,
   listArea,
   content,
-  currentProject
+  currentProject,
+  listAreaWrapper
 ) => {
   const projectDivision = document.createElement("button");
   projectDivision.classList.add("projectDivision");
@@ -23,7 +20,7 @@ const createDefaultProject = (
   projectDivision.appendChild(projectTitle);
   projectDivision.appendChild(projectDescription);
 
-  const { addTaskBtn /* , addTaskInput */ } = createTaskInputAndBtn(content);
+  const { addTaskBtn } = createTaskInputAndBtn(content, listAreaWrapper);
 
   // Add task
   addTaskBtn.addEventListener("click", () => {
@@ -90,7 +87,7 @@ const createDefaultProject = (
 
       addTask(
         taskItemIndex,
-        currentProject /* , addTaskInput.value */,
+        currentProject,
         listArea,
         dialogTaskTitle.value,
         dialogTaskDescription.value,
@@ -113,7 +110,7 @@ const createDefaultProject = (
     const oldWrapper = document.querySelector(".taskInputWrapper");
     if (oldWrapper) oldWrapper.remove();
 
-    const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
+    const { addTaskBtn } = createTaskInputAndBtn(content, listAreaWrapper);
 
     let taskItemIndex = 0;
 
@@ -199,6 +196,7 @@ const createDefaultProject = (
       });
     }
 
+    // task modal
     addTaskBtn.addEventListener("click", () => {
       const taskDialog = document.createElement("dialog");
       taskDialog.classList.add("taskDialog");
@@ -267,7 +265,7 @@ const createDefaultProject = (
 
         addTask(
           taskItemIndex,
-          currentProject /* , addTaskInput.value */,
+          currentProject,
           listArea,
           dialogTaskTitle.value,
           dialogTaskDescription.value,

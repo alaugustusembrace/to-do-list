@@ -3,7 +3,7 @@ import { createTaskInputAndBtn } from "./addTaskInputAndButton.js";
 import { addTask } from "./addTask.js";
 import { parseISO, format } from "date-fns";
 
-const createNewProject = (projectWrapper, listArea) => {
+const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
   const newProjectDivision = document.createElement("button");
   newProjectDivision.classList.add("newProjectDivision");
   const projectTitle = document.createElement("h2");
@@ -53,7 +53,10 @@ const createNewProject = (projectWrapper, listArea) => {
       const oldWrapper = document.querySelector(".taskInputWrapper");
       if (oldWrapper) oldWrapper.remove();
 
-      const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(content);
+      const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(
+        content,
+        listAreaWrapper
+      );
 
       let taskItemIndex = 0;
 
@@ -208,7 +211,7 @@ const createNewProject = (projectWrapper, listArea) => {
 
           addTask(
             taskItemIndex,
-            currentProject /* , addTaskInput.value */,
+            currentProject,
             listArea,
             dialogTaskTitle.value,
             dialogTaskDescription.value,

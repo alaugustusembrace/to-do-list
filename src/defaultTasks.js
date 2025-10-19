@@ -2,6 +2,7 @@ import { defaultProject } from "./project.js";
 
 const createDefaultTasks = (listArea) => {
   let taskItemIndex = 0;
+
   for (const task of defaultProject.tasks) {
     taskItemIndex++;
     const taskItem = document.createElement("li");
@@ -86,3 +87,5 @@ const createDefaultTasks = (listArea) => {
 };
 
 export { createDefaultTasks };
+export const getTaskItemIndex = () => taskItemIndex;
+export const setTaskItemIndex = () => (taskItemIndex = val);

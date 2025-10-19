@@ -7,17 +7,17 @@ import { addTask } from "./addTask.js";
 import { createNewProject } from "./newProject.js";
 import { format } from "date-fns";
 
-const { content, projectContainer, projectWrapper, listAreaWrapper, listArea } =
+const { content, project, projectWrapper, listAreaWrapper, listArea } =
   createBaseContent();
 
 // Creating Default Tasks
 let { taskItemIndex } = createDefaultTasks(listArea);
 
-// Create New Project Button
-const newProjectDivisionBtn = document.createElement("button");
-newProjectDivisionBtn.classList.add("new-project-btn");
-newProjectDivisionBtn.textContent = "+ New Project";
-content.appendChild(newProjectDivisionBtn);
+// // Create New Project Button
+// const newProjectDivisionBtn = document.createElement("button");
+// newProjectDivisionBtn.classList.add("new-project-btn");
+// newProjectDivisionBtn.textContent = "+ New Project";
+// projectWrapper.appendChild(newProjectDivisionBtn);
 
 // Creating Default Project
 const { projectDivision } = createDefaultProject(
@@ -25,8 +25,9 @@ const { projectDivision } = createDefaultProject(
   defaultProject.title,
   defaultProject.description,
   listArea,
-  content, // passing content argument 10/14/2025 7:17AM
-  defaultProject
+  content,
+  defaultProject,
+  listAreaWrapper
 );
 projectWrapper.appendChild(projectDivision);
 
@@ -48,7 +49,7 @@ projectWrapper.appendChild(projectDivision);
 //   addTask(taskItemIndex, defaultProject, addTaskInput.value, listArea);
 // });
 
-// Create New Project
-newProjectDivisionBtn.addEventListener("click", () => {
-  createNewProject(projectWrapper, listArea);
-});
+// // Create New Project
+// newProjectDivisionBtn.addEventListener("click", () => {
+//   createNewProject(projectWrapper, listArea);
+// });

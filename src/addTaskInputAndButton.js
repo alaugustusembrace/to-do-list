@@ -1,17 +1,15 @@
-const createTaskInputAndBtn = (content) => {
+const createTaskInputAndBtn = (content, listAreaWrapper) => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("taskInputWrapper");
 
-  // const addTaskInput = document.createElement("input");
-  // addTaskInput.placeholder = "Buy a new tank";
-
   const addTaskBtn = document.createElement("button");
-  addTaskBtn.textContent = "Add Task";
+  addTaskBtn.classList.add("addTaskBtn");
+  addTaskBtn.textContent = "+ Add Task";
 
-  wrapper.appendChild(/* addTaskInput,*/ addTaskBtn);
-  content.appendChild(wrapper);
+  wrapper.appendChild(addTaskBtn);
+  listAreaWrapper.appendChild(wrapper);
 
-  return { addTaskBtn /* , addTaskInput */, wrapper };
+  return { addTaskBtn, wrapper };
 };
 
 export { createTaskInputAndBtn };
