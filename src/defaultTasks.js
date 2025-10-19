@@ -48,6 +48,14 @@ const createDefaultTasks = (listArea) => {
     checkTaskBtn.classList.add("check-btn");
     checkTaskBtn.type = "checkbox";
 
+    checkTaskBtn.addEventListener("click", (e) => {
+      const targetTitle = document.querySelector(".taskTitle");
+      targetTitle.style.textDecoration = e.target.checked
+        ? "line-through"
+        : "none";
+      targetTitle.style.textDecorationThickness = "3px";
+    });
+
     const removeTaskBtn = document.createElement("button");
     removeTaskBtn.classList.add("remove-btn");
     removeTaskBtn.textContent = "X";
