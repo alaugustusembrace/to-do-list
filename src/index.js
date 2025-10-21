@@ -23,7 +23,7 @@ let { taskItemIndex } = createDefaultTasks(listArea);
 const { projectDivision } = createDefaultProject(
   taskItemIndex,
   defaultProject.title,
-  defaultProject.description,
+  // defaultProject.description,
   listArea,
   content,
   defaultProject,

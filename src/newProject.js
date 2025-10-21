@@ -7,24 +7,19 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
   const newProjectDivision = document.createElement("button");
   newProjectDivision.classList.add("newProjectDivision");
   const projectTitle = document.createElement("h2");
-  const projectDescription = document.createElement("p");
 
   const projectDialog = document.createElement("dialog");
   projectDialog.classList.add("project-dialog");
   const projectTitleInput = document.createElement("input");
   projectTitleInput.classList.add("title-input");
-  const projectDescriptionInput = document.createElement("input");
-  projectDescriptionInput.classList.add("desc-input");
 
   const projectDialogHeader = document.createElement("h2");
   projectDialogHeader.textContent = "New Project";
 
   projectTitleInput.placeholder = "Project Title";
-  projectDescriptionInput.placeholder = "Project Description";
 
   projectDialog.appendChild(projectDialogHeader);
   projectDialog.appendChild(projectTitleInput);
-  projectDialog.appendChild(projectDescriptionInput);
   content.appendChild(projectDialog);
   projectDialog.showModal();
 
@@ -33,16 +28,11 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
   projectDialog.appendChild(createProjectBtn);
 
   createProjectBtn.addEventListener("click", () => {
-    const currentProject = new Project(
-      projectTitleInput.value,
-      projectDescriptionInput.value
-    );
+    const currentProject = new Project(projectTitleInput.value);
 
     projectTitle.textContent = currentProject.title;
-    projectDescription.textContent = currentProject.description;
 
     newProjectDivision.appendChild(projectTitle);
-    newProjectDivision.appendChild(projectDescription);
     projectWrapper.appendChild(newProjectDivision);
     projectDialog.close();
 

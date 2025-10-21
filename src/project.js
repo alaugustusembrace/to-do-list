@@ -6,9 +6,8 @@ const exerciseDueDate = addDays(today, 4);
 const runDueDate = addDays(today, 3);
 
 class Project {
-  constructor(title, description, isDefault = false) {
+  constructor(title, isDefault = false) {
     this.title = title;
-    this.description = description;
     this.tasks = isDefault
       ? [
           {
@@ -28,7 +27,7 @@ class Project {
           {
             id: 3,
             title: "Eat",
-            description: "Eat real food 3 times a day",
+            description: "Eat food 3 times a day",
             dueDate: format(today, "MMMM dd, yyyy"),
             priority: 2,
           },
@@ -51,10 +50,6 @@ class Project {
   }
 }
 
-const defaultProject = new Project(
-  "Routine",
-  "A description related to the project",
-  true
-);
+const defaultProject = new Project("Routine", true);
 
 export { defaultProject, Project };

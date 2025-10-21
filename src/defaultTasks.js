@@ -49,11 +49,6 @@ const createDefaultTasks = (listArea) => {
     checkTaskBtn.type = "checkbox";
 
     checkTaskBtn.addEventListener("click", (e) => {
-      // const targetTitle = document.querySelector(".taskTitle");
-      // targetTitle.style.textDecoration = e.target.checked
-      //   ? "line-through"
-      //   : "none";
-      // targetTitle.style.textDecorationThickness = "3px";
       taskTitle.style.textDecoration = e.target.checked
         ? "line-through"
         : "none";
