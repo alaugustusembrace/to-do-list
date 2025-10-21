@@ -159,3 +159,18 @@ li {
 .newProjectDivision:focus {
   background-color: rgb(145, 196, 195, 1);
 }
+
+.priorityWrapper {
+  padding: 0.25em;
+}
+
+.taskPriorityWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  text-align: center;
+}
+
+.priorityHeading {
+  margin-bottom: 0;
+}

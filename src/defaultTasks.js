@@ -4,6 +4,8 @@ const createDefaultTasks = (listArea) => {
   let taskItemIndex = 0;
 
   for (const task of defaultProject.tasks) {
+    const randomDifficulty = Math.floor(Math.random() * 10);
+
     taskItemIndex++;
     const taskItem = document.createElement("li");
     taskItem.dataset.id = taskItemIndex;
@@ -24,6 +26,36 @@ const createDefaultTasks = (listArea) => {
     taskDescription.classList.add("taskDescription");
     taskDescription.textContent = task.description;
 
+    // /*
+    const taskPriorityWrapper = document.createElement("div");
+    taskPriorityWrapper.classList.add("taskPriorityWrapper");
+
+    const priorityHeading = document.createElement("h4");
+    priorityHeading.classList.add("priorityHeading");
+
+    priorityHeading.textContent = "Priority";
+
+    const priority = document.createElement("h5");
+    priority.classList.add("priority");
+
+    const priorityWrapper = document.createElement("div");
+    priorityWrapper.classList.add("priorityWrapper");
+
+    priorityWrapper.appendChild(priority);
+
+    if (randomDifficulty > 0 && randomDifficulty <= 3) {
+      priority.textContent = "LOW";
+      priorityWrapper.style.backgroundColor = "green";
+    } else if (randomDifficulty > 3 && randomDifficulty <= 6) {
+      priority.textContent = "MEDIUM";
+      priorityWrapper.style.backgroundColor = "yellow";
+    } else {
+      priority.textContent = "HIGH";
+      priorityWrapper.style.backgroundColor = "red";
+    }
+
+    taskPriorityWrapper.append(priorityHeading, priorityWrapper);
+
     const taskDateAndPriorityWrapper = document.createElement("div");
     taskDateAndPriorityWrapper.classList.add("taskDateAndPriorityWrapper");
 
@@ -31,9 +63,9 @@ const createDefaultTasks = (listArea) => {
     taskDate.classList.add("taskDate");
     taskDate.textContent = "Due Date: " + task.dueDate;
 
-    const taskPriority = document.createElement("p");
-    taskDate.classList.add("taskPriority");
-    taskPriority.textContent = "Priority: " + task.priority;
+    // const taskPriority = document.createElement("p");
+    // taskDate.classList.add("taskPriority");
+    // taskPriority.textContent = "Priority: " + task.priority;
 
     const taskBtnWrapper = document.createElement("div");
     taskBtnWrapper.classList.add("taskBtnWrapper");
@@ -68,7 +100,9 @@ const createDefaultTasks = (listArea) => {
     checkAndRemoveBtnWrapper.append(checkTaskBtn, removeTaskBtn);
 
     taskTitleAndDescWrapper.append(taskTitle, taskDescription);
-    taskDateAndPriorityWrapper.append(taskDate, taskPriority);
+    // taskDateAndPriorityWrapper.append(taskDate, taskPriority);
+
+    taskDateAndPriorityWrapper.append(taskDate, taskPriorityWrapper);
 
     taskWrapper.append(taskTitleAndDescWrapper, taskDateAndPriorityWrapper);
 
