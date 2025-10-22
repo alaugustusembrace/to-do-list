@@ -43,9 +43,34 @@ const addTask = (
   taskDate.classList.add("taskDate");
   taskDate.textContent = "Due Date: " + taskDateValue;
 
-  const taskPriority = document.createElement("p");
-  taskDate.classList.add("taskPriority");
-  taskPriority.textContent = "Priority: " + taskPriorityValue;
+  const taskPriorityWrapper = document.createElement("div");
+  taskPriorityWrapper.classList.add("taskPriorityWrapper");
+
+  const priorityHeading = document.createElement("h4");
+  priorityHeading.classList.add("priorityHeading");
+
+  priorityHeading.textContent = "Priority";
+
+  const priority = document.createElement("h5");
+  priority.classList.add("priority");
+
+  const priorityWrapper = document.createElement("div");
+  priorityWrapper.classList.add("priorityWrapper");
+
+  priorityWrapper.appendChild(priority);
+
+  if (taskPriorityValue === "low") {
+    priority.textContent = "LOW";
+    priorityWrapper.style.backgroundColor = "green";
+  } else if (taskPriorityValue === "medium") {
+    priority.textContent = "MEDIUM";
+    priorityWrapper.style.backgroundColor = "yellow";
+  } else {
+    priority.textContent = "HIGH";
+    priorityWrapper.style.backgroundColor = "red";
+  }
+
+  taskPriorityWrapper.append(priorityHeading, priorityWrapper);
 
   const taskBtnWrapper = document.createElement("div");
   taskBtnWrapper.classList.add("taskBtnWrapper");
@@ -75,7 +100,7 @@ const addTask = (
   taskBtnWrapper.append(checkAndRemoveBtnWrapper, editWrapper);
 
   taskTitleAndDescWrapper.append(taskTitle, taskDescription);
-  taskDateAndPriorityWrapper.append(taskDate, taskPriority);
+  taskDateAndPriorityWrapper.append(taskDate, taskPriorityWrapper);
 
   taskWrapper.append(taskTitleAndDescWrapper, taskDateAndPriorityWrapper);
 

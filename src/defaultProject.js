@@ -18,7 +18,7 @@ const createDefaultProject = (
 
   const { addTaskBtn } = createTaskInputAndBtn(content, listAreaWrapper);
 
-  // Add task
+  // To Add task
   addTaskBtn.addEventListener("click", () => {
     const taskDialog = document.createElement("dialog");
     taskDialog.classList.add("taskDialog");
@@ -39,9 +39,34 @@ const createDefaultProject = (
     dialogTaskDueDate.classList.add("dialogTaskDueDate");
     dialogTaskDueDate.type = "date";
 
-    const dialogTaskPriority = document.createElement("input");
+    const dialogTaskPriority = document.createElement("select");
     dialogTaskPriority.classList.add("dialogTaskPriority");
-    dialogTaskPriority.placeholder = "Task Priority (1, 2, 3)";
+    dialogTaskPriority.name = "priority";
+    dialogTaskPriority.id = "priority";
+
+    const labelForPriority = document.createElement("label");
+    labelForPriority.classList.add("labelForPriority");
+    labelForPriority.htmlFor = "priority";
+    labelForPriority.textContent = "Priority:";
+
+    for (let i = 1; i <= 3; i++) {
+      if (i === 1) {
+        const optionLow = document.createElement("option");
+        optionLow.value = "low";
+        optionLow.textContent = "LOW";
+        dialogTaskPriority.add(optionLow);
+      } else if (i === 2) {
+        const optionMedium = document.createElement("option");
+        optionMedium.value = "medium";
+        optionMedium.textContent = "MEDIUM";
+        dialogTaskPriority.add(optionMedium);
+      } else {
+        const optionHigh = document.createElement("option");
+        optionHigh.value = "high";
+        optionHigh.textContent = "HIGH";
+        dialogTaskPriority.add(optionHigh);
+      }
+    }
 
     const submitTaskModalBtn = document.createElement("button");
     submitTaskModalBtn.classList.add("submitTaskModalBtn");
@@ -62,7 +87,11 @@ const createDefaultProject = (
     const submitAndCloseBtnWrapper = document.createElement("div");
     submitAndCloseBtnWrapper.classList.add("submitAndCloseBtnWrapper");
 
-    taskTitleAndPriorityWrapper.append(dialogTaskTitle, dialogTaskPriority);
+    taskTitleAndPriorityWrapper.append(
+      dialogTaskTitle,
+      labelForPriority,
+      dialogTaskPriority
+    );
     taskDescriptionAndDateWrapper.append(
       dialogTaskDescription,
       dialogTaskDueDate
