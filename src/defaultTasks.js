@@ -43,15 +43,27 @@ const createDefaultTasks = (listArea) => {
 
     priorityWrapper.appendChild(priority);
 
-    if (randomDifficulty > 0 && randomDifficulty <= 3) {
-      priority.textContent = "LOW";
-      priorityWrapper.style.backgroundColor = "green";
-    } else if (randomDifficulty > 3 && randomDifficulty <= 6) {
-      priority.textContent = "MEDIUM";
-      priorityWrapper.style.backgroundColor = "yellow";
-    } else {
-      priority.textContent = "HIGH";
-      priorityWrapper.style.backgroundColor = "red";
+    switch (task.title) {
+      case "Study":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "red";
+        break;
+      case "Sleep":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "red";
+        break;
+      case "Eat":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "yellow";
+        break;
+      case "Exercise":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "yellow";
+        break;
+      case "Run":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "green";
+        break;
     }
 
     taskPriorityWrapper.append(priorityHeading, priorityWrapper);

@@ -92,6 +92,7 @@ const createDefaultProject = (
       labelForPriority,
       dialogTaskPriority
     );
+
     taskDescriptionAndDateWrapper.append(
       dialogTaskDescription,
       dialogTaskDueDate
@@ -177,9 +178,53 @@ const createDefaultProject = (
       taskDate.classList.add("taskDate");
       taskDate.textContent = "Due Date: " + task.dueDate;
 
-      const taskPriority = document.createElement("p");
-      taskDate.classList.add("taskPriority");
-      taskPriority.textContent = "Priority: " + task.priority;
+      // const dialogTaskPriority = document.createElement("select");
+      // dialogTaskPriority.classList.add("dialogTaskPriority");
+      // dialogTaskPriority.name = "priority";
+      // dialogTaskPriority.id = "priority";
+
+      const randomDifficulty = Math.floor(Math.random() * 10);
+
+      const taskPriorityWrapper = document.createElement("div");
+      taskPriorityWrapper.classList.add("taskPriorityWrapper");
+
+      const priorityHeading = document.createElement("h4");
+      priorityHeading.classList.add("priorityHeading");
+
+      priorityHeading.textContent = "Priority";
+
+      const priority = document.createElement("h5");
+      priority.classList.add("priority");
+
+      const priorityWrapper = document.createElement("div");
+      priorityWrapper.classList.add("priorityWrapper");
+
+      priorityWrapper.appendChild(priority);
+
+      switch (task.title) {
+        case "Study":
+          priority.textContent = task.priority.toUpperCase();
+          priorityWrapper.style.backgroundColor = "red";
+          break;
+        case "Sleep":
+          priority.textContent = task.priority.toUpperCase();
+          priorityWrapper.style.backgroundColor = "red";
+          break;
+        case "Eat":
+          priority.textContent = task.priority.toUpperCase();
+          priorityWrapper.style.backgroundColor = "yellow";
+          break;
+        case "Exercise":
+          priority.textContent = task.priority.toUpperCase();
+          priorityWrapper.style.backgroundColor = "yellow";
+          break;
+        case "Run":
+          priority.textContent = task.priority.toUpperCase();
+          priorityWrapper.style.backgroundColor = "green";
+          break;
+      }
+
+      taskPriorityWrapper.append(priorityHeading, priorityWrapper);
 
       const checkTaskBtn = document.createElement("input");
       checkTaskBtn.classList.add("check-btn");
@@ -200,7 +245,7 @@ const createDefaultProject = (
       taskBtnWrapper.append(checkAndRemoveBtnWrapper, editWrapper);
 
       taskTitleAndDescWrapper.append(taskTitle, taskDescription);
-      taskDateAndPriorityWrapper.append(taskDate, taskPriority);
+      taskDateAndPriorityWrapper.append(taskDate, taskPriorityWrapper);
 
       taskWrapper.append(taskTitleAndDescWrapper, taskDateAndPriorityWrapper);
 
@@ -221,7 +266,7 @@ const createDefaultProject = (
       });
     }
 
-    // task modal
+    // To add task
     addTaskBtn.addEventListener("click", () => {
       const taskDialog = document.createElement("dialog");
       taskDialog.classList.add("taskDialog");
@@ -242,9 +287,34 @@ const createDefaultProject = (
       dialogTaskDueDate.classList.add("dialogTaskDueDate");
       dialogTaskDueDate.type = "date";
 
-      const dialogTaskPriority = document.createElement("input");
+      const dialogTaskPriority = document.createElement("select");
       dialogTaskPriority.classList.add("dialogTaskPriority");
-      dialogTaskPriority.placeholder = "Task Priority (1, 2, 3)";
+      dialogTaskPriority.name = "priority";
+      dialogTaskPriority.id = "priority";
+
+      const labelForPriority = document.createElement("label");
+      labelForPriority.classList.add("labelForPriority");
+      labelForPriority.htmlFor = "priority";
+      labelForPriority.textContent = "Priority:";
+
+      for (let i = 1; i <= 3; i++) {
+        if (i === 1) {
+          const optionLow = document.createElement("option");
+          optionLow.value = "low";
+          optionLow.textContent = "LOW";
+          dialogTaskPriority.add(optionLow);
+        } else if (i === 2) {
+          const optionMedium = document.createElement("option");
+          optionMedium.value = "medium";
+          optionMedium.textContent = "MEDIUM";
+          dialogTaskPriority.add(optionMedium);
+        } else {
+          const optionHigh = document.createElement("option");
+          optionHigh.value = "high";
+          optionHigh.textContent = "HIGH";
+          dialogTaskPriority.add(optionHigh);
+        }
+      }
 
       const submitTaskModalBtn = document.createElement("button");
       submitTaskModalBtn.classList.add("submitTaskModalBtn");
@@ -265,7 +335,12 @@ const createDefaultProject = (
       const submitAndCloseBtnWrapper = document.createElement("div");
       submitAndCloseBtnWrapper.classList.add("submitAndCloseBtnWrapper");
 
-      taskTitleAndPriorityWrapper.append(dialogTaskTitle, dialogTaskPriority);
+      taskTitleAndPriorityWrapper.append(
+        dialogTaskTitle,
+        labelForPriority,
+        dialogTaskPriority
+      );
+
       taskDescriptionAndDateWrapper.append(
         dialogTaskDescription,
         dialogTaskDueDate
@@ -284,17 +359,13 @@ const createDefaultProject = (
       submitTaskModalBtn.addEventListener("click", () => {
         taskItemIndex++;
 
-        const isoDate = dialogTaskDueDate.value;
-        const newDate = parseISO(isoDate);
-        const formattedTaskDate = format(newDate, "MMMM dd, yyyy");
-
         addTask(
           taskItemIndex,
           currentProject,
           listArea,
           dialogTaskTitle.value,
           dialogTaskDescription.value,
-          formattedTaskDate,
+          dialogTaskDueDate.value,
           dialogTaskPriority.value
         );
 
