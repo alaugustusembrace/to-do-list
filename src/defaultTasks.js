@@ -109,7 +109,7 @@ const createDefaultTasks = (listArea) => {
 
     editWrapper.appendChild(editButton);
 
-    checkAndRemoveBtnWrapper.append(checkTaskBtn, removeTaskBtn);
+    checkAndRemoveBtnWrapper.append(removeTaskBtn, checkTaskBtn);
 
     taskTitleAndDescWrapper.append(taskTitle, taskDescription);
     // taskDateAndPriorityWrapper.append(taskDate, taskPriority);

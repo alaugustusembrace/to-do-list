@@ -78,13 +78,18 @@ const addTask = (
   const checkAndRemoveBtnWrapper = document.createElement("div");
   checkAndRemoveBtnWrapper.classList.add("checkAndRemoveBtnWrapper");
 
+  const removeTaskBtn = document.createElement("button");
+  removeTaskBtn.classList.add("remove-btn");
+  removeTaskBtn.textContent = "X";
+
   const checkTaskBtn = document.createElement("input");
   checkTaskBtn.classList.add("check-btn");
   checkTaskBtn.type = "checkbox";
 
-  const removeTaskBtn = document.createElement("button");
-  removeTaskBtn.classList.add("remove-btn");
-  removeTaskBtn.textContent = "X";
+  checkTaskBtn.addEventListener("click", (e) => {
+    taskTitle.style.textDecoration = e.target.checked ? "line-through" : "none";
+    taskTitle.style.textDecorationThickness = "3px";
+  });
 
   const editWrapper = document.createElement("div");
   editWrapper.classList.add("editWrapper");
@@ -93,7 +98,7 @@ const addTask = (
   editButton.classList.add("editButton");
   editButton.textContent = "Edit";
 
-  checkAndRemoveBtnWrapper.append(checkTaskBtn, removeTaskBtn);
+  checkAndRemoveBtnWrapper.append(removeTaskBtn, checkTaskBtn);
 
   editWrapper.appendChild(editButton);
 

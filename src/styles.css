@@ -148,6 +148,7 @@ li {
   border-radius: 5px;
   border: 0;
   padding: 1em;
+  cursor: pointer;
 }
 
 .projectDivision:hover,
@@ -158,6 +159,11 @@ li {
 .projectDivision:focus,
 .newProjectDivision:focus {
   background-color: rgb(145, 196, 195, 1);
+}
+
+.projectDivision:active,
+.newProjectDivision:active {
+  background-color: rgb(74, 128, 127);
 }
 
 .priorityWrapper {
@@ -173,4 +179,20 @@ li {
 
 .priorityHeading {
   margin-bottom: 0;
+}
+
+.checkAndRemoveBtnWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.taskBtnWrapper {
+  margin-left: 6em;
+}
+
+.check-btn {
+  transform: scale(1.5);
+  accent-color: green;
+  cursor: pointer;
+  margin-top: 2.5em;
 }

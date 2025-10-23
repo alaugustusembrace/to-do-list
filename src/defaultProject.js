@@ -233,19 +233,26 @@ const createDefaultProject = (
 
       taskPriorityWrapper.append(priorityHeading, priorityWrapper);
 
+      const removeTaskBtn = document.createElement("button");
+      removeTaskBtn.classList.add("remove-btn");
+      removeTaskBtn.textContent = "X";
+
       const checkTaskBtn = document.createElement("input");
       checkTaskBtn.classList.add("check-btn");
       checkTaskBtn.type = "checkbox";
 
-      const removeTaskBtn = document.createElement("button");
-      removeTaskBtn.classList.add("remove-btn");
-      removeTaskBtn.textContent = "X";
+      checkTaskBtn.addEventListener("click", (e) => {
+        taskTitle.style.textDecoration = e.target.checked
+          ? "line-through"
+          : "none";
+        taskTitle.style.textDecorationThickness = "3px";
+      });
 
       const editButton = document.createElement("button");
       editButton.classList.add("editButton");
       editButton.textContent = "edit";
 
-      checkAndRemoveBtnWrapper.append(checkTaskBtn, removeTaskBtn);
+      checkAndRemoveBtnWrapper.append(removeTaskBtn, checkTaskBtn);
 
       editWrapper.appendChild(editButton);
 
