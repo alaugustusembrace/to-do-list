@@ -191,8 +191,25 @@ li {
 }
 
 .check-btn {
-  transform: scale(1.5);
+  transform: scale(1.75);
   accent-color: green;
   cursor: pointer;
   margin-top: 2.5em;
+}
+
+.remove-btn,
+.editButton {
+  cursor: pointer;
+}
+
+.editTitleAndDescWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.editTaskTitle,
+.editTitleAndDescWrapper,
+.editDateAndDateLabebl,
+#edit-priority {
+  margin-bottom: 1em;
 }
