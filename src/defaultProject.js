@@ -183,8 +183,6 @@ const createDefaultProject = (
       // dialogTaskPriority.name = "priority";
       // dialogTaskPriority.id = "priority";
 
-      const randomDifficulty = Math.floor(Math.random() * 10);
-
       const taskPriorityWrapper = document.createElement("div");
       taskPriorityWrapper.classList.add("taskPriorityWrapper");
 
@@ -222,6 +220,15 @@ const createDefaultProject = (
           priority.textContent = task.priority.toUpperCase();
           priorityWrapper.style.backgroundColor = "green";
           break;
+        default:
+          priority.textContent = task.priority.toUpperCase();
+          if (task.priority === "high") {
+            priorityWrapper.style.backgroundColor = "red";
+          } else if (task.priority === "medium") {
+            priorityWrapper.style.backgroundColor = "yellow";
+          } else {
+            priorityWrapper.style.backgroundColor = "green";
+          }
       }
 
       taskPriorityWrapper.append(priorityHeading, priorityWrapper);
