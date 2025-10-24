@@ -213,3 +213,13 @@ li {
 #edit-priority {
   margin-bottom: 1em;
 }
+
+.new-project-btn:active,
+.addTaskBtn:active {
+  background-color: rgba(78, 163, 157, 0.3);
+}
+
+.confirmAndCancelWrapper {
+  display: flex;
+  justify-content: space-between;
+}

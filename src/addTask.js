@@ -1,4 +1,4 @@
-import { parseISO, format } from "date-fns";
+import { editButtonModal } from "./editButton.js";
 
 const addTask = (
   taskItemIndex,
@@ -98,82 +98,9 @@ const addTask = (
   editButton.classList.add("editButton");
   editButton.textContent = "Edit";
 
+  // to edit task
   editButton.addEventListener("click", () => {
-    const editModal = document.createElement("dialog");
-    editModal.classList.add("editModal");
-
-    const editTasksWrapper = document.createElement("div");
-    editTasksWrapper.classList.add("editTaskWrapper");
-
-    const editModalHeader = document.createElement("h2");
-    editModalHeader.classList.add("editModalHeader");
-    editModalHeader.textContent = "Edit Task";
-
-    const editTitleAndDescWrapper = document.createElement("div");
-    editTitleAndDescWrapper.classList.add("editTitleAndDescWrapper");
-
-    const editTaskTitle = document.createElement("input");
-    editTaskTitle.classList.add("editTaskTitle");
-    editTaskTitle.placeholder = "Task Title";
-
-    const editTaskDescription = document.createElement("input");
-    editTaskTitle.classList.add("editTaskDescription");
-    editTaskDescription.placeholder = "Task Description...";
-
-    editTitleAndDescWrapper.append(editTaskTitle, editTaskDescription);
-
-    const editDateAndDateLabebl = document.createElement("div");
-    editDateAndDateLabebl.classList.add("editDateAndDateLabebl");
-
-    const editTaskDate = document.createElement("input");
-    editTaskTitle.id = "date";
-    editTaskDate.type = "date";
-
-    const editTaskDateLabel = document.createElement("label");
-    editTaskDateLabel.htmlFor = "date";
-    editTaskDateLabel.textContent = "Due Date:";
-
-    editDateAndDateLabebl.append(editTaskDateLabel, editTaskDate);
-
-    const editTaskPriority = document.createElement("select");
-    editTaskPriority.id = "edit-priority";
-
-    const editTaskPriorityLabel = document.createElement("label");
-    editTaskPriorityLabel.classList.add("editTaskPriorityLabel");
-    editTaskPriorityLabel.htmlFor = "edit-priority";
-    editTaskPriorityLabel.textContent = "Priority: ";
-
-    for (let i = 1; i <= 3; i++) {
-      if (i === 1) {
-        const editPriorityOption = document.createElement("option");
-        editPriorityOption.value = "low";
-        editPriorityOption.textContent = "LOW";
-        editTaskPriority.appendChild(editPriorityOption);
-      } else if (i === 2) {
-        const editPriorityOption = document.createElement("option");
-        editPriorityOption.value = "medium";
-        editPriorityOption.textContent = "MEDIUM";
-        editTaskPriority.appendChild(editPriorityOption);
-      } else if (i === 3) {
-        const editPriorityOption = document.createElement("option");
-        editPriorityOption.value = "high";
-        editPriorityOption.textContent = "HIGH";
-        editTaskPriority.appendChild(editPriorityOption);
-      }
-    }
-
-    editTasksWrapper.append(
-      editTitleAndDescWrapper,
-      editDateAndDateLabebl,
-      editTaskPriorityLabel,
-      editTaskPriority
-    );
-
-    editModal.append(editModalHeader, editTasksWrapper);
-
-    content.appendChild(editModal);
-
-    editModal.showModal();
+    editButtonModal();
   });
 
   checkAndRemoveBtnWrapper.append(removeTaskBtn, checkTaskBtn);
