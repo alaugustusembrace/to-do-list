@@ -1,4 +1,4 @@
-const editButtonModal = () => {
+const editButtonModal = (taskId, currentProject) => {
   const editModal = document.createElement("dialog");
   editModal.classList.add("editModal");
 
@@ -51,6 +51,19 @@ const editButtonModal = () => {
   confirmEdit.textContent = "Confirm";
 
   confirmEdit.addEventListener("click", () => {
+    const taskToEdit = document.querySelector(`[data-id="${taskId}"]`);
+    if (!taskToEdit) return;
+
+    const newTitle = taskToEdit
+      .querySelector(".taskTitleAndDescWrapper")
+      .querySelector(".taskTitle");
+    if (newTitle) newTitle.textContent = editTaskTitle.value;
+
+    const taskData = currentProject.tasks.find(
+      (tasky) => tasky.id === Number(taskId)
+    );
+    if (taskData) taskData.title = editTaskTitle.value;
+
     editModal.close();
   });
 
