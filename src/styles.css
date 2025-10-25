@@ -89,7 +89,7 @@ li {
 
 .listAreaWrapper {
   flex: 0 0 80%;
-  padding: 1.5em 10%;
+  padding: 1em 10%;
   background-color: rgba(186, 223, 219, 0.1);
   overflow: visible;
 }

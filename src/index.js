@@ -8,13 +8,11 @@ const { content, project, projectWrapper, listAreaWrapper, listArea } =
   createBaseContent();
 
 // Creating Default Tasks
-let { taskItemIndex } = createDefaultTasks(listArea);
+createDefaultTasks(listArea);
 
 // Creating Default Project
 const { projectDivision } = createDefaultProject(
-  taskItemIndex,
   defaultProject.title,
-  // defaultProject.description,
   listArea,
   content,
   defaultProject,

@@ -3,7 +3,6 @@ import { addTask } from "./addTask.js";
 import { editButtonModal } from "./editButton.js";
 
 const createDefaultProject = (
-  taskItemIndex,
   title,
   listArea,
   content,
@@ -110,8 +109,6 @@ const createDefaultProject = (
 
     const taskID = crypto.randomUUID();
     submitTaskModalBtn.addEventListener("click", () => {
-      // taskItemIndex++;
-
       addTask(
         taskID,
         currentProject,
@@ -139,10 +136,7 @@ const createDefaultProject = (
 
     const { addTaskBtn } = createTaskInputAndBtn(content, listAreaWrapper);
 
-    let taskItemIndex = 0;
-
     for (const task of currentProject.tasks) {
-      // taskItemIndex++;
       const taskItem = document.createElement("li");
       taskItem.dataset.id = task.id;
 
@@ -374,7 +368,6 @@ const createDefaultProject = (
       taskDialog.showModal();
 
       submitTaskModalBtn.addEventListener("click", () => {
-        // taskItemIndex++;
         const taskID = crypto.randomUUID();
 
         addTask(

@@ -48,23 +48,23 @@ const createDefaultTasks = (listArea, newTitle) => {
     priorityWrapper.appendChild(priority);
 
     switch (task.title) {
-      case "Study":
+      case "Capture Saddam Hussein":
         priority.textContent = task.priority.toUpperCase();
         priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
         break;
-      case "Sleep":
+      case "Fix the bug":
         priority.textContent = task.priority.toUpperCase();
         priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
         break;
-      case "Eat":
+      case "Hiking":
         priority.textContent = task.priority.toUpperCase();
         priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
         break;
-      case "Exercise":
+      case "Attend the meeting":
         priority.textContent = task.priority.toUpperCase();
         priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
         break;
-      case "Run":
+      case "Join the seminar":
         priority.textContent = task.priority.toUpperCase();
         priorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
         break;
