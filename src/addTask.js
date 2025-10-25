@@ -65,13 +65,13 @@ const addTask = (
 
   if (taskPriorityValue === "low") {
     priority.textContent = "LOW";
-    priorityWrapper.style.backgroundColor = "green";
+    priorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
   } else if (taskPriorityValue === "medium") {
     priority.textContent = "MEDIUM";
-    priorityWrapper.style.backgroundColor = "yellow";
+    priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
   } else {
     priority.textContent = "HIGH";
-    priorityWrapper.style.backgroundColor = "red";
+    priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
   }
 
   taskPriorityWrapper.append(priorityHeading, priorityWrapper);
@@ -135,7 +135,7 @@ const addTask = (
   removeTaskBtn.addEventListener("click", (e) => {
     const listItem = e.target.closest("li");
     currentProject.tasks = currentProject.tasks.filter(
-      (item) => item.id !== Number(listItem.dataset.id)
+      (item) => String(item.id) !== String(listItem.dataset.id)
     );
     listItem.remove();
   });

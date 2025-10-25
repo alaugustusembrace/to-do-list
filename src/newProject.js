@@ -51,9 +51,9 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
       let taskItemIndex = 0;
 
       for (const task of currentProject.tasks) {
-        taskItemIndex++;
+        // taskItemIndex++;
         const taskItem = document.createElement("li");
-        taskItem.dataset.id = taskItemIndex;
+        taskItem.dataset.id = task.id;
 
         const taskContainer = document.createElement("div");
         taskContainer.classList.add("taskContainer");
@@ -107,32 +107,32 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
         switch (task.title) {
           case "Study":
             priority.textContent = task.priority.toUpperCase();
-            priorityWrapper.style.backgroundColor = "red";
+            priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
             break;
           case "Sleep":
             priority.textContent = task.priority.toUpperCase();
-            priorityWrapper.style.backgroundColor = "red";
+            priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
             break;
           case "Eat":
             priority.textContent = task.priority.toUpperCase();
-            priorityWrapper.style.backgroundColor = "yellow";
+            priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
             break;
           case "Exercise":
             priority.textContent = task.priority.toUpperCase();
-            priorityWrapper.style.backgroundColor = "yellow";
+            priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
             break;
           case "Run":
             priority.textContent = task.priority.toUpperCase();
-            priorityWrapper.style.backgroundColor = "green";
+            priorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
             break;
           default:
             priority.textContent = task.priority.toUpperCase();
             if (task.priority === "high") {
-              priorityWrapper.style.backgroundColor = "red";
+              priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
             } else if (task.priority === "medium") {
-              priorityWrapper.style.backgroundColor = "yellow";
+              priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
             } else {
-              priorityWrapper.style.backgroundColor = "green";
+              priorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
             }
         }
 
@@ -158,7 +158,7 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
         editButton.textContent = "EDIT";
 
         // to edit task
-        taskWrapper.dataset.id = taskItemIndex;
+        taskWrapper.dataset.id = task.id;
 
         editButton.addEventListener("click", () => {
           editButtonModal(taskWrapper.dataset.id, currentProject);
@@ -184,7 +184,7 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
         removeTaskBtn.addEventListener("click", (e) => {
           const listItem = e.target.closest("li");
           currentProject.tasks = currentProject.tasks.filter(
-            (item) => item.id !== Number(listItem.dataset.id)
+            (item) => String(item.id) !== String(listItem.dataset.id)
           );
           listItem.remove();
         });
@@ -283,10 +283,11 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
         taskDialog.showModal();
 
         submitTaskModalBtn.addEventListener("click", () => {
-          taskItemIndex++;
+          // taskItemIndex++;
+          const taskID = crypto.randomUUID();
 
           addTask(
-            taskItemIndex,
+            taskID,
             currentProject,
             listArea,
             dialogTaskTitle.value,

@@ -5,9 +5,9 @@ const createDefaultTasks = (listArea, newTitle) => {
   let taskItemIndex = 0;
 
   for (const task of defaultProject.tasks) {
-    taskItemIndex++;
+    // taskItemIndex++;
     const taskItem = document.createElement("li");
-    taskItem.dataset.id = taskItemIndex;
+    taskItem.dataset.id = task.id;
     const taskContainer = document.createElement("div");
     taskContainer.classList.add("taskContainer");
 
@@ -47,74 +47,27 @@ const createDefaultTasks = (listArea, newTitle) => {
 
     priorityWrapper.appendChild(priority);
 
-    // switch (task.title) {
-    //   case "Study":
-    //     priority.textContent = task.priority.toUpperCase();
-    //     priorityWrapper.style.backgroundColor = "red";
-    //     break;
-    //   case "Sleep":
-    //     priority.textContent = task.priority.toUpperCase();
-    //     priorityWrapper.style.backgroundColor = "red";
-    //     break;
-    //   case "Eat":
-    //     priority.textContent = task.priority.toUpperCase();
-    //     priorityWrapper.style.backgroundColor = "yellow";
-    //     break;
-    //   case "Exercise":
-    //     priority.textContent = task.priority.toUpperCase();
-    //     priorityWrapper.style.backgroundColor = "yellow";
-    //     break;
-    //   case "Run":
-    //     priority.textContent = task.priority.toUpperCase();
-    //     priorityWrapper.style.backgroundColor = "green";
-    //     break;
-    // }
-    if (newTitle) {
-      switch (newTitle) {
-        case newTitle:
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "red";
-          break;
-        case newTitle:
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "red";
-          break;
-        case newTitle:
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "yellow";
-          break;
-        case newTitle:
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "yellow";
-          break;
-        case newTitle:
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "green";
-          break;
-      }
-    } else {
-      switch (task.title) {
-        case "Study":
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "red";
-          break;
-        case "Sleep":
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "red";
-          break;
-        case "Eat":
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "yellow";
-          break;
-        case "Exercise":
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "yellow";
-          break;
-        case "Run":
-          priority.textContent = task.priority.toUpperCase();
-          priorityWrapper.style.backgroundColor = "green";
-          break;
-      }
+    switch (task.title) {
+      case "Study":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+        break;
+      case "Sleep":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+        break;
+      case "Eat":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+        break;
+      case "Exercise":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+        break;
+      case "Run":
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
+        break;
     }
 
     taskPriorityWrapper.append(priorityHeading, priorityWrapper);
@@ -155,8 +108,7 @@ const createDefaultTasks = (listArea, newTitle) => {
     editButton.textContent = "EDIT";
 
     // to edit task
-
-    taskWrapper.dataset.id = taskItemIndex;
+    taskWrapper.dataset.id = task.id;
 
     editButton.addEventListener("click", () => {
       editButtonModal(taskWrapper.dataset.id, defaultProject);
@@ -184,7 +136,7 @@ const createDefaultTasks = (listArea, newTitle) => {
     removeTaskBtn.addEventListener("click", (e) => {
       const listItem = e.target.closest("li");
       defaultProject.tasks = defaultProject.tasks.filter(
-        (item) => item.id !== Number(listItem.dataset.id)
+        (item) => String(item.id) !== String(listItem.dataset.id)
       );
 
       listItem.remove();

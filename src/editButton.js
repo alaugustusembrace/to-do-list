@@ -89,21 +89,23 @@ const editButtonModal = (taskId, currentProject) => {
       .querySelector(".priorityWrapper");
     if (newPriorityWrapper) {
       if (newPriority.textContent === "LOW") {
-        newPriorityWrapper.style.backgroundColor = "green";
+        newPriorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
       } else if (newPriority.textContent === "MEDIUM") {
-        newPriorityWrapper.style.backgroundColor = "yellow";
+        newPriorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
       } else {
-        newPriorityWrapper.style.backgroundColor = "red";
+        newPriorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
       }
     }
 
     const taskData = currentProject.tasks.find(
-      (tasky) => tasky.id === Number(taskId)
+      (tasky) => String(tasky.id) === String(taskId)
     );
+
     if (taskData) {
       taskData.title = editTaskTitle.value;
       taskData.description = editTaskDescription.value;
       taskData.dueDate = editTaskDate;
+      taskData.priority = editTaskPriority.value;
     }
 
     editModal.close();
