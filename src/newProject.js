@@ -155,11 +155,13 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
 
         const editButton = document.createElement("button");
         editButton.classList.add("editButton");
-        editButton.textContent = "edit";
+        editButton.textContent = "EDIT";
 
         // to edit task
+        taskWrapper.dataset.id = taskItemIndex;
+
         editButton.addEventListener("click", () => {
-          editButtonModal();
+          editButtonModal(taskWrapper.dataset.id, currentProject);
         });
 
         checkAndRemoveBtnWrapper.append(removeTaskBtn, checkTaskBtn);

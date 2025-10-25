@@ -13,7 +13,7 @@ class Project {
           {
             id: 1,
             title: "Study",
-            description: "Study straight for 1 hour",
+            description: "Study straight for atleast 1 hour",
             dueDate: format(studyDueDate, "MMMM dd, yyyy"),
             priority: "high",
           },
@@ -27,7 +27,7 @@ class Project {
           {
             id: 3,
             title: "Eat",
-            description: "Eat food 3 times a day",
+            description: "Eat healthy foods 3 times a day",
             dueDate: format(today, "MMMM dd, yyyy"),
             priority: "medium",
           },

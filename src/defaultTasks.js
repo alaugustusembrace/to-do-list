@@ -152,7 +152,7 @@ const createDefaultTasks = (listArea, newTitle) => {
 
     const editButton = document.createElement("button");
     editButton.classList.add("editButton");
-    editButton.textContent = "edit";
+    editButton.textContent = "EDIT";
 
     // to edit task
 

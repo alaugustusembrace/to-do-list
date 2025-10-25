@@ -1,4 +1,5 @@
 import { editButtonModal } from "./editButton.js";
+import { parseISO, format } from "date-fns";
 
 const addTask = (
   taskItemIndex,
@@ -9,6 +10,9 @@ const addTask = (
   taskDateValue,
   taskPriorityValue
 ) => {
+  taskDateValue = parseISO(taskDateValue);
+  taskDateValue = format(taskDateValue, "MMMM dd, yyyy");
+
   const taskItem = document.createElement("li");
   taskItem.dataset.id = taskItemIndex;
   currentProject.tasks.push({
@@ -96,12 +100,19 @@ const addTask = (
 
   const editButton = document.createElement("button");
   editButton.classList.add("editButton");
-  editButton.textContent = "Edit";
+  editButton.textContent = "EDIT";
 
   // to edit task
+
+  taskWrapper.dataset.id = taskItemIndex;
+
   editButton.addEventListener("click", () => {
-    editButtonModal();
+    editButtonModal(taskWrapper.dataset.id, currentProject);
   });
+
+  // editButton.addEventListener("click", () => {
+  //   editButtonModal();
+  // });
 
   checkAndRemoveBtnWrapper.append(removeTaskBtn, checkTaskBtn);
 

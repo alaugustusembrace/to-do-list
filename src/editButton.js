@@ -1,3 +1,5 @@
+import { parseISO, format } from "date-fns";
+
 const editButtonModal = (taskId, currentProject) => {
   const editModal = document.createElement("dialog");
   editModal.classList.add("editModal");
@@ -25,7 +27,7 @@ const editButtonModal = (taskId, currentProject) => {
   const editDateAndDateLabebl = document.createElement("div");
   editDateAndDateLabebl.classList.add("editDateAndDateLabebl");
 
-  const editTaskDate = document.createElement("input");
+  let editTaskDate = document.createElement("input");
   editTaskTitle.id = "date";
   editTaskDate.type = "date";
 
@@ -51,6 +53,9 @@ const editButtonModal = (taskId, currentProject) => {
   confirmEdit.textContent = "Confirm";
 
   confirmEdit.addEventListener("click", () => {
+    editTaskDate = parseISO(editTaskDate.value);
+    editTaskDate = format(editTaskDate, "MMMM dd, yyyy");
+
     const taskToEdit = document.querySelector(`[data-id="${taskId}"]`);
     if (!taskToEdit) return;
 
@@ -59,10 +64,47 @@ const editButtonModal = (taskId, currentProject) => {
       .querySelector(".taskTitle");
     if (newTitle) newTitle.textContent = editTaskTitle.value;
 
+    const newDescription = taskToEdit
+      .querySelector(".taskTitleAndDescWrapper")
+      .querySelector(".taskDescription");
+    if (newDescription) newDescription.textContent = editTaskDescription.value;
+
+    const newDate = taskToEdit
+      .querySelector(".taskDateAndPriorityWrapper")
+      .querySelector(".taskDate");
+    if (newDate) newDate.textContent = "Due Date: " + editTaskDate;
+
+    const newPriority = taskToEdit
+      .querySelector(".taskDateAndPriorityWrapper")
+      .querySelector(".taskPriorityWrapper")
+      .querySelector(".priorityWrapper")
+      .querySelector(".priority");
+    if (newPriority) {
+      newPriority.textContent = editTaskPriority.value.toUpperCase();
+    }
+
+    const newPriorityWrapper = taskToEdit
+      .querySelector(".taskDateAndPriorityWrapper")
+      .querySelector(".taskPriorityWrapper")
+      .querySelector(".priorityWrapper");
+    if (newPriorityWrapper) {
+      if (newPriority.textContent === "LOW") {
+        newPriorityWrapper.style.backgroundColor = "green";
+      } else if (newPriority.textContent === "MEDIUM") {
+        newPriorityWrapper.style.backgroundColor = "yellow";
+      } else {
+        newPriorityWrapper.style.backgroundColor = "red";
+      }
+    }
+
     const taskData = currentProject.tasks.find(
       (tasky) => tasky.id === Number(taskId)
     );
-    if (taskData) taskData.title = editTaskTitle.value;
+    if (taskData) {
+      taskData.title = editTaskTitle.value;
+      taskData.description = editTaskDescription.value;
+      taskData.dueDate = editTaskDate;
+    }
 
     editModal.close();
   });
