@@ -1,7 +1,7 @@
 import { defaultProject } from "./project.js";
 import { editButtonModal } from "./editButton.js";
 
-const createDefaultTasks = (listArea) => {
+const createDefaultTasks = (listArea, content) => {
   for (const task of defaultProject.tasks) {
     const taskItem = document.createElement("li");
     taskItem.classList.add("taskItem");
@@ -109,7 +109,7 @@ const createDefaultTasks = (listArea) => {
     taskWrapper.dataset.id = task.id;
 
     editButton.addEventListener("click", () => {
-      editButtonModal(taskWrapper.dataset.id, defaultProject);
+      editButtonModal(taskWrapper.dataset.id, defaultProject, content);
     });
 
     editWrapper.appendChild(editButton);
@@ -134,7 +134,7 @@ const createDefaultTasks = (listArea) => {
     removeTaskBtn.addEventListener("click", (e) => {
       const listItem = e.target.closest("li");
       defaultProject.tasks = defaultProject.tasks.filter(
-        (item) => String(item.id) !== String(listItem.dataset.id)
+        (item) => String(item.id) !== String(listItem.dataset.id),
       );
 
       listItem.remove();

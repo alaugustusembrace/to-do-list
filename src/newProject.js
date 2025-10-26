@@ -3,7 +3,12 @@ import { createTaskInputAndBtn } from "./addTaskInputAndButton.js";
 import { addTask } from "./addTask.js";
 import { editButtonModal } from "./editButton.js";
 
-const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
+const createNewProject = (
+  projectWrapper,
+  listArea,
+  listAreaWrapper,
+  content,
+) => {
   const newProjectDivision = document.createElement("button");
   newProjectDivision.classList.add("newProjectDivision");
   const projectTitle = document.createElement("h2");
@@ -55,12 +60,7 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
       const oldWrapper = document.querySelector(".taskInputWrapper");
       if (oldWrapper) oldWrapper.remove();
 
-      const { addTaskBtn, addTaskInput } = createTaskInputAndBtn(
-        content,
-        listAreaWrapper
-      );
-
-      let taskItemIndex = 0;
+      const { addTaskBtn } = createTaskInputAndBtn(content, listAreaWrapper);
 
       for (const task of currentProject.tasks) {
         // taskItemIndex++;
@@ -206,7 +206,7 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
         removeTaskBtn.addEventListener("click", (e) => {
           const listItem = e.target.closest("li");
           currentProject.tasks = currentProject.tasks.filter(
-            (item) => String(item.id) !== String(listItem.dataset.id)
+            (item) => String(item.id) !== String(listItem.dataset.id),
           );
           listItem.remove();
         });
@@ -272,12 +272,12 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
 
         const taskTitleAndPriorityWrapper = document.createElement("div");
         taskTitleAndPriorityWrapper.classList.add(
-          "taskTitleAndPriorityWrapper"
+          "taskTitleAndPriorityWrapper",
         );
 
         const taskDescriptionAndDateWrapper = document.createElement("div");
         taskDescriptionAndDateWrapper.classList.add(
-          "taskDescriptionAndDateWrapper"
+          "taskDescriptionAndDateWrapper",
         );
 
         const submitAndCloseBtnWrapper = document.createElement("div");
@@ -286,12 +286,12 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
         taskTitleAndPriorityWrapper.append(
           dialogTaskTitle,
           labelForPriority,
-          dialogTaskPriority
+          dialogTaskPriority,
         );
 
         taskDescriptionAndDateWrapper.append(
           dialogTaskDescription,
-          dialogTaskDueDate
+          dialogTaskDueDate,
         );
         submitAndCloseBtnWrapper.append(submitTaskModalBtn, closeTaskModalBtn);
 
@@ -299,7 +299,7 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
           taskHeader,
           taskTitleAndPriorityWrapper,
           taskDescriptionAndDateWrapper,
-          submitAndCloseBtnWrapper
+          submitAndCloseBtnWrapper,
         );
         content.appendChild(taskDialog);
         taskDialog.showModal();
@@ -331,7 +331,7 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
                 dialogTaskTitle.value,
                 dialogTaskDescription.value,
                 dialogTaskDueDate.value,
-                dialogTaskPriority.value
+                dialogTaskPriority.value,
               );
               taskDialog.close();
             }

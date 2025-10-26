@@ -8,7 +8,7 @@ const addTask = (
   taskTitleValue,
   taskDescriptionValue,
   taskDateValue,
-  taskPriorityValue
+  taskPriorityValue,
 ) => {
   taskDateValue = parseISO(taskDateValue);
   taskDateValue = format(taskDateValue, "MMMM dd, yyyy");
@@ -139,7 +139,7 @@ const addTask = (
   removeTaskBtn.addEventListener("click", (e) => {
     const listItem = e.target.closest("li");
     currentProject.tasks = currentProject.tasks.filter(
-      (item) => String(item.id) !== String(listItem.dataset.id)
+      (item) => String(item.id) !== String(listItem.dataset.id),
     );
     listItem.remove();
   });

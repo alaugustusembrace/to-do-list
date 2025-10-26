@@ -7,7 +7,7 @@ const createDefaultProject = (
   listArea,
   content,
   currentProject,
-  listAreaWrapper
+  listAreaWrapper,
 ) => {
   const projectDivision = document.createElement("button");
   projectDivision.classList.add("projectDivision");
@@ -80,7 +80,7 @@ const createDefaultProject = (
 
     const taskDescriptionAndDateWrapper = document.createElement("div");
     taskDescriptionAndDateWrapper.classList.add(
-      "taskDescriptionAndDateWrapper"
+      "taskDescriptionAndDateWrapper",
     );
 
     const submitAndCloseBtnWrapper = document.createElement("div");
@@ -89,12 +89,12 @@ const createDefaultProject = (
     taskTitleAndPriorityWrapper.append(
       dialogTaskTitle,
       labelForPriority,
-      dialogTaskPriority
+      dialogTaskPriority,
     );
 
     taskDescriptionAndDateWrapper.append(
       dialogTaskDescription,
-      dialogTaskDueDate
+      dialogTaskDueDate,
     );
     submitAndCloseBtnWrapper.append(submitTaskModalBtn, closeTaskModalBtn);
 
@@ -102,7 +102,7 @@ const createDefaultProject = (
       taskHeader,
       taskTitleAndPriorityWrapper,
       taskDescriptionAndDateWrapper,
-      submitAndCloseBtnWrapper
+      submitAndCloseBtnWrapper,
     );
     content.appendChild(taskDialog);
     taskDialog.showModal();
@@ -133,7 +133,7 @@ const createDefaultProject = (
             dialogTaskTitle.value,
             dialogTaskDescription.value,
             dialogTaskDueDate.value,
-            dialogTaskPriority.value
+            dialogTaskPriority.value,
           );
           taskDialog.close();
         }
@@ -300,7 +300,7 @@ const createDefaultProject = (
       removeTaskBtn.addEventListener("click", (e) => {
         const listItem = e.target.closest("li");
         currentProject.tasks = currentProject.tasks.filter(
-          (item) => String(item.id) !== String(listItem.dataset.id)
+          (item) => String(item.id) !== String(listItem.dataset.id),
         );
 
         listItem.remove();
@@ -370,7 +370,7 @@ const createDefaultProject = (
 
       const taskDescriptionAndDateWrapper = document.createElement("div");
       taskDescriptionAndDateWrapper.classList.add(
-        "taskDescriptionAndDateWrapper"
+        "taskDescriptionAndDateWrapper",
       );
 
       const submitAndCloseBtnWrapper = document.createElement("div");
@@ -379,12 +379,12 @@ const createDefaultProject = (
       taskTitleAndPriorityWrapper.append(
         dialogTaskTitle,
         labelForPriority,
-        dialogTaskPriority
+        dialogTaskPriority,
       );
 
       taskDescriptionAndDateWrapper.append(
         dialogTaskDescription,
-        dialogTaskDueDate
+        dialogTaskDueDate,
       );
       submitAndCloseBtnWrapper.append(submitTaskModalBtn, closeTaskModalBtn);
 
@@ -392,7 +392,7 @@ const createDefaultProject = (
         taskHeader,
         taskTitleAndPriorityWrapper,
         taskDescriptionAndDateWrapper,
-        submitAndCloseBtnWrapper
+        submitAndCloseBtnWrapper,
       );
       content.appendChild(taskDialog);
       taskDialog.showModal();
@@ -424,7 +424,7 @@ const createDefaultProject = (
               dialogTaskTitle.value,
               dialogTaskDescription.value,
               dialogTaskDueDate.value,
-              dialogTaskPriority.value
+              dialogTaskPriority.value,
             );
             taskDialog.close();
           }

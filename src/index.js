@@ -1,14 +1,14 @@
 import "./styles.css";
 import { createBaseContent } from "./baseContent.js";
 import { createDefaultProject } from "./defaultProject.js";
-import { defaultProject, Project } from "./project.js";
+import { defaultProject } from "./project.js";
 import { createDefaultTasks } from "./defaultTasks.js";
 
-const { content, project, projectWrapper, listAreaWrapper, listArea } =
+const { content, projectWrapper, listAreaWrapper, listArea } =
   createBaseContent();
 
 // Creating Default Tasks
-createDefaultTasks(listArea);
+createDefaultTasks(listArea, content);
 
 // Creating Default Project
 const { projectDivision } = createDefaultProject(
@@ -16,6 +16,6 @@ const { projectDivision } = createDefaultProject(
   listArea,
   content,
   defaultProject,
-  listAreaWrapper
+  listAreaWrapper,
 );
 projectWrapper.appendChild(projectDivision);

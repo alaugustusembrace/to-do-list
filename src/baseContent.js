@@ -30,11 +30,11 @@ const createBaseContent = () => {
 
   const projectHeadingAndNewProjectBtnWrapper = document.createElement("div");
   projectHeadingAndNewProjectBtnWrapper.classList.add(
-    "projectHeadingAndNewProjectBtnWrapper"
+    "projectHeadingAndNewProjectBtnWrapper",
   );
   projectHeadingAndNewProjectBtnWrapper.append(
     projectHeading,
-    newProjectDivisionBtn
+    newProjectDivisionBtn,
   );
 
   projectWrapper.appendChild(projectHeadingAndNewProjectBtnWrapper);
@@ -43,7 +43,7 @@ const createBaseContent = () => {
 
   // Create New Project
   newProjectDivisionBtn.addEventListener("click", () => {
-    createNewProject(projectWrapper, listArea, listAreaWrapper);
+    createNewProject(projectWrapper, listArea, listAreaWrapper, content);
   });
 
   content.appendChild(project);
