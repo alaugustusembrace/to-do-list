@@ -231,10 +231,20 @@ const createDefaultProject = (
       checkTaskBtn.classList.add("check-btn");
       checkTaskBtn.type = "checkbox";
 
+      if (task.completed) {
+        checkTaskBtn.checked = true;
+        taskTitle.style.textDecoration = "line-through";
+        taskTitle.style.textDecorationThickness = "3px";
+      }
+
       checkTaskBtn.addEventListener("click", (e) => {
-        taskTitle.style.textDecoration = e.target.checked
-          ? "line-through"
-          : "none";
+        if (e.target.checked) {
+          taskTitle.style.textDecoration = "line-through";
+          task.completed = true;
+        } else {
+          taskTitle.style.textDecoration = "none";
+          task.completed = false;
+        }
         taskTitle.style.textDecorationThickness = "3px";
       });
 

@@ -91,7 +91,15 @@ const addTask = (
   checkTaskBtn.type = "checkbox";
 
   checkTaskBtn.addEventListener("click", (e) => {
-    taskTitle.style.textDecoration = e.target.checked ? "line-through" : "none";
+    if (e.target.checked) {
+      taskTitle.style.textDecoration = "line-through";
+      const tasksLength = currentProject.tasks.length;
+      currentProject.tasks[tasksLength - 1].completed = true;
+    } else {
+      taskTitle.style.textDecoration = "none";
+      const tasksLength = currentProject.tasks.length;
+      currentProject.tasks[tasksLength - 1].completed = false;
+    }
     taskTitle.style.textDecorationThickness = "3px";
   });
 
@@ -109,10 +117,6 @@ const addTask = (
   editButton.addEventListener("click", () => {
     editButtonModal(taskWrapper.dataset.id, currentProject);
   });
-
-  // editButton.addEventListener("click", () => {
-  //   editButtonModal();
-  // });
 
   checkAndRemoveBtnWrapper.append(removeTaskBtn, checkTaskBtn);
 

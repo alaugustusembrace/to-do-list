@@ -1,13 +1,12 @@
 import { defaultProject } from "./project.js";
 import { editButtonModal } from "./editButton.js";
 
-const createDefaultTasks = (listArea, newTitle) => {
-  let taskItemIndex = 0;
-
+const createDefaultTasks = (listArea) => {
   for (const task of defaultProject.tasks) {
-    // taskItemIndex++;
     const taskItem = document.createElement("li");
+    taskItem.classList.add("taskItem");
     taskItem.dataset.id = task.id;
+
     const taskContainer = document.createElement("div");
     taskContainer.classList.add("taskContainer");
 
@@ -18,13 +17,8 @@ const createDefaultTasks = (listArea, newTitle) => {
     taskTitleAndDescWrapper.classList.add("taskTitleAndDescWrapper");
 
     const taskTitle = document.createElement("h3");
-    if (newTitle) {
-      taskTitle.classList.add("taskTitle");
-      taskTitle.textContent = newTitle;
-    } else {
-      taskTitle.classList.add("taskTitle");
-      taskTitle.textContent = task.title;
-    }
+    taskTitle.classList.add("taskTitle");
+    taskTitle.textContent = task.title;
 
     const taskDescription = document.createElement("p");
     taskDescription.classList.add("taskDescription");
@@ -93,9 +87,13 @@ const createDefaultTasks = (listArea, newTitle) => {
     checkTaskBtn.type = "checkbox";
 
     checkTaskBtn.addEventListener("click", (e) => {
-      taskTitle.style.textDecoration = e.target.checked
-        ? "line-through"
-        : "none";
+      if (e.target.checked) {
+        taskTitle.style.textDecoration = "line-through";
+        task.completed = true;
+      } else {
+        taskTitle.style.textDecoration = "none";
+        task.completed = false;
+      }
       taskTitle.style.textDecorationThickness = "3px";
     });
 
@@ -142,7 +140,6 @@ const createDefaultTasks = (listArea, newTitle) => {
       listItem.remove();
     });
   }
-  return { taskItemIndex };
 };
 
 export { createDefaultTasks };

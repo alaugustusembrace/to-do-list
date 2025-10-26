@@ -41,7 +41,7 @@ class Project {
           {
             id: 5,
             title: "Join the seminar",
-            description: "Join the seminar about financial management",
+            description: "Join the seminar about gambling addiction",
             dueDate: format(runDueDate, "MMMM dd, yyyy"),
             priority: "low",
           },
