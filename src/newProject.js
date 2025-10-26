@@ -33,8 +33,20 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
     projectTitle.textContent = currentProject.title;
 
     newProjectDivision.appendChild(projectTitle);
-    projectWrapper.appendChild(newProjectDivision);
-    projectDialog.close();
+
+    // input validation
+    try {
+      if (newProjectDivision.textContent === "") {
+        throw "empty";
+      } else if (newProjectDivision.textContent.length > 18) {
+        throw "too long";
+      } else {
+        projectWrapper.appendChild(newProjectDivision);
+        projectDialog.close();
+      }
+    } catch (error) {
+      alert("Error: Input is " + error);
+    }
 
     // Clearing the listArea for new project
     newProjectDivision.addEventListener("click", () => {
@@ -295,17 +307,37 @@ const createNewProject = (projectWrapper, listArea, listAreaWrapper) => {
         submitTaskModalBtn.addEventListener("click", () => {
           const taskID = crypto.randomUUID();
 
-          addTask(
-            taskID,
-            currentProject,
-            listArea,
-            dialogTaskTitle.value,
-            dialogTaskDescription.value,
-            dialogTaskDueDate.value,
-            dialogTaskPriority.value
-          );
-
-          taskDialog.close();
+          // input validation
+          try {
+            if (
+              dialogTaskTitle.value === "" ||
+              dialogTaskDescription.value === "" ||
+              dialogTaskPriority.value === "" ||
+              dialogTaskDueDate.value === ""
+            ) {
+              throw "Please fill all the fields";
+            } else if (
+              (dialogTaskTitle.value !== "" &&
+                dialogTaskTitle.value.length > 60) ||
+              (dialogTaskDescription.value !== "" &&
+                dialogTaskDescription.value.length > 80)
+            ) {
+              throw "Title or Description Input too long";
+            } else {
+              addTask(
+                taskID,
+                currentProject,
+                listArea,
+                dialogTaskTitle.value,
+                dialogTaskDescription.value,
+                dialogTaskDueDate.value,
+                dialogTaskPriority.value
+              );
+              taskDialog.close();
+            }
+          } catch (error) {
+            alert(error);
+          }
         });
 
         closeTaskModalBtn.addEventListener("click", () => {

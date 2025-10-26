@@ -53,62 +53,140 @@ const editButtonModal = (taskId, currentProject) => {
   confirmEdit.textContent = "Confirm";
 
   confirmEdit.addEventListener("click", () => {
-    editTaskDate = parseISO(editTaskDate.value);
-    editTaskDate = format(editTaskDate, "MMMM dd, yyyy");
-
-    const taskToEdit = document.querySelector(`[data-id="${taskId}"]`);
-    if (!taskToEdit) return;
-
-    const newTitle = taskToEdit
-      .querySelector(".taskTitleAndDescWrapper")
-      .querySelector(".taskTitle");
-    if (newTitle) newTitle.textContent = editTaskTitle.value;
-
-    const newDescription = taskToEdit
-      .querySelector(".taskTitleAndDescWrapper")
-      .querySelector(".taskDescription");
-    if (newDescription) newDescription.textContent = editTaskDescription.value;
-
-    const newDate = taskToEdit
-      .querySelector(".taskDateAndPriorityWrapper")
-      .querySelector(".taskDate");
-    if (newDate) newDate.textContent = "Due Date: " + editTaskDate;
-
-    const newPriority = taskToEdit
-      .querySelector(".taskDateAndPriorityWrapper")
-      .querySelector(".taskPriorityWrapper")
-      .querySelector(".priorityWrapper")
-      .querySelector(".priority");
-    if (newPriority) {
-      newPriority.textContent = editTaskPriority.value.toUpperCase();
-    }
-
-    const newPriorityWrapper = taskToEdit
-      .querySelector(".taskDateAndPriorityWrapper")
-      .querySelector(".taskPriorityWrapper")
-      .querySelector(".priorityWrapper");
-    if (newPriorityWrapper) {
-      if (newPriority.textContent === "LOW") {
-        newPriorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
-      } else if (newPriority.textContent === "MEDIUM") {
-        newPriorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+    // input validation
+    try {
+      if (
+        editTaskTitle.value === "" ||
+        editTaskDescription.value === "" ||
+        editTaskDate.value === "" ||
+        editTaskPriority.value === ""
+      ) {
+        throw "Please fill all the fields";
+      } else if (
+        (editTaskTitle.value !== "" && editTaskTitle.value.length > 60) ||
+        (editTaskDescription.value !== "" &&
+          editTaskDescription.value.length > 80)
+      ) {
+        throw "Title or Description too long";
       } else {
-        newPriorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+        editTaskDate = parseISO(editTaskDate.value);
+        editTaskDate = format(editTaskDate, "MMMM dd, yyyy");
+
+        const taskToEdit = document.querySelector(`[data-id="${taskId}"]`);
+        if (!taskToEdit) return;
+
+        const newTitle = taskToEdit
+          .querySelector(".taskTitleAndDescWrapper")
+          .querySelector(".taskTitle");
+        if (newTitle) newTitle.textContent = editTaskTitle.value;
+
+        const newDescription = taskToEdit
+          .querySelector(".taskTitleAndDescWrapper")
+          .querySelector(".taskDescription");
+        if (newDescription)
+          newDescription.textContent = editTaskDescription.value;
+
+        const newDate = taskToEdit
+          .querySelector(".taskDateAndPriorityWrapper")
+          .querySelector(".taskDate");
+        if (newDate) newDate.textContent = "Due Date: " + editTaskDate;
+
+        const newPriority = taskToEdit
+          .querySelector(".taskDateAndPriorityWrapper")
+          .querySelector(".taskPriorityWrapper")
+          .querySelector(".priorityWrapper")
+          .querySelector(".priority");
+        if (newPriority) {
+          newPriority.textContent = editTaskPriority.value.toUpperCase();
+        }
+
+        const newPriorityWrapper = taskToEdit
+          .querySelector(".taskDateAndPriorityWrapper")
+          .querySelector(".taskPriorityWrapper")
+          .querySelector(".priorityWrapper");
+        if (newPriorityWrapper) {
+          if (newPriority.textContent === "LOW") {
+            newPriorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
+          } else if (newPriority.textContent === "MEDIUM") {
+            newPriorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+          } else {
+            newPriorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+          }
+        }
+
+        const taskData = currentProject.tasks.find(
+          (tasky) => String(tasky.id) === String(taskId)
+        );
+
+        if (taskData) {
+          taskData.title = editTaskTitle.value;
+          taskData.description = editTaskDescription.value;
+          taskData.dueDate = editTaskDate;
+          taskData.priority = editTaskPriority.value;
+        }
+
+        editModal.close();
       }
+    } catch (error) {
+      alert(error);
     }
 
-    const taskData = currentProject.tasks.find(
-      (tasky) => String(tasky.id) === String(taskId)
-    );
+    // editTaskDate = parseISO(editTaskDate.value);
+    // editTaskDate = format(editTaskDate, "MMMM dd, yyyy");
 
-    if (taskData) {
-      taskData.title = editTaskTitle.value;
-      taskData.description = editTaskDescription.value;
-      taskData.dueDate = editTaskDate;
-      taskData.priority = editTaskPriority.value;
-    }
+    // const taskToEdit = document.querySelector(`[data-id="${taskId}"]`);
+    // if (!taskToEdit) return;
 
-    editModal.close();
+    // const newTitle = taskToEdit
+    //   .querySelector(".taskTitleAndDescWrapper")
+    //   .querySelector(".taskTitle");
+    // if (newTitle) newTitle.textContent = editTaskTitle.value;
+
+    // const newDescription = taskToEdit
+    //   .querySelector(".taskTitleAndDescWrapper")
+    //   .querySelector(".taskDescription");
+    // if (newDescription) newDescription.textContent = editTaskDescription.value;
+
+    // const newDate = taskToEdit
+    //   .querySelector(".taskDateAndPriorityWrapper")
+    //   .querySelector(".taskDate");
+    // if (newDate) newDate.textContent = "Due Date: " + editTaskDate;
+
+    // const newPriority = taskToEdit
+    //   .querySelector(".taskDateAndPriorityWrapper")
+    //   .querySelector(".taskPriorityWrapper")
+    //   .querySelector(".priorityWrapper")
+    //   .querySelector(".priority");
+    // if (newPriority) {
+    //   newPriority.textContent = editTaskPriority.value.toUpperCase();
+    // }
+
+    // const newPriorityWrapper = taskToEdit
+    //   .querySelector(".taskDateAndPriorityWrapper")
+    //   .querySelector(".taskPriorityWrapper")
+    //   .querySelector(".priorityWrapper");
+    // if (newPriorityWrapper) {
+    //   if (newPriority.textContent === "LOW") {
+    //     newPriorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
+    //   } else if (newPriority.textContent === "MEDIUM") {
+    //     newPriorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+    //   } else {
+    //     newPriorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+    //   }
+    // }
+
+    // const taskData = currentProject.tasks.find(
+    //   (tasky) => String(tasky.id) === String(taskId)
+    // );
+
+    // if (taskData) {
+    //   taskData.title = editTaskTitle.value;
+    //   taskData.description = editTaskDescription.value;
+    //   taskData.dueDate = editTaskDate;
+    //   taskData.priority = editTaskPriority.value;
+    // }
+
+    // editModal.close();
   });
 
   const cancelEdit = document.createElement("button");

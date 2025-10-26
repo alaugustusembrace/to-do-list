@@ -108,18 +108,38 @@ const createDefaultProject = (
     taskDialog.showModal();
 
     const taskID = crypto.randomUUID();
-    submitTaskModalBtn.addEventListener("click", () => {
-      addTask(
-        taskID,
-        currentProject,
-        listArea,
-        dialogTaskTitle.value,
-        dialogTaskDescription.value,
-        dialogTaskDueDate.value,
-        dialogTaskPriority.value
-      );
 
-      taskDialog.close();
+    submitTaskModalBtn.addEventListener("click", () => {
+      // input validation
+      try {
+        if (
+          dialogTaskTitle.value === "" ||
+          dialogTaskDescription.value === "" ||
+          dialogTaskPriority.value === "" ||
+          dialogTaskDueDate.value === ""
+        ) {
+          throw "Please fill all the fields";
+        } else if (
+          (dialogTaskTitle.value !== "" && dialogTaskTitle.value.length > 60) ||
+          (dialogTaskDescription.value !== "" &&
+            dialogTaskDescription.value.length > 80)
+        ) {
+          throw "Title or Description Input too long";
+        } else {
+          addTask(
+            taskID,
+            currentProject,
+            listArea,
+            dialogTaskTitle.value,
+            dialogTaskDescription.value,
+            dialogTaskDueDate.value,
+            dialogTaskPriority.value
+          );
+          taskDialog.close();
+        }
+      } catch (error) {
+        alert(error);
+      }
     });
 
     closeTaskModalBtn.addEventListener("click", () => {
@@ -380,17 +400,37 @@ const createDefaultProject = (
       submitTaskModalBtn.addEventListener("click", () => {
         const taskID = crypto.randomUUID();
 
-        addTask(
-          taskID,
-          currentProject,
-          listArea,
-          dialogTaskTitle.value,
-          dialogTaskDescription.value,
-          dialogTaskDueDate.value,
-          dialogTaskPriority.value
-        );
-
-        taskDialog.close();
+        // input validation
+        try {
+          if (
+            dialogTaskTitle.value === "" ||
+            dialogTaskDescription.value === "" ||
+            dialogTaskPriority.value === "" ||
+            dialogTaskDueDate.value === ""
+          ) {
+            throw "Please fill all the fields";
+          } else if (
+            (dialogTaskTitle.value !== "" &&
+              dialogTaskTitle.value.length > 60) ||
+            (dialogTaskDescription.value !== "" &&
+              dialogTaskDescription.value.length > 80)
+          ) {
+            throw "Title or Description Input too long";
+          } else {
+            addTask(
+              taskID,
+              currentProject,
+              listArea,
+              dialogTaskTitle.value,
+              dialogTaskDescription.value,
+              dialogTaskDueDate.value,
+              dialogTaskPriority.value
+            );
+            taskDialog.close();
+          }
+        } catch (error) {
+          alert(error);
+        }
       });
 
       closeTaskModalBtn.addEventListener("click", () => {
