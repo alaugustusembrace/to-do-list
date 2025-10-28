@@ -6,7 +6,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017//todoDB");
+mongoose
+  .connect("mongodb://localhost:27017/todoDB")
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 const taskSchema = new mongoose.Schema({
   title: String,

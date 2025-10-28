@@ -10,6 +10,18 @@ const addTask = (
   taskDateValue,
   taskPriorityValue,
 ) => {
+  fetch("http://localhost:5000/api/tasks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      title: taskTitleValue,
+      description: taskDescriptionValue,
+      dueDate: taskDateValue,
+      priority: taskPriorityValue,
+      completed: false,
+    }),
+  });
+
   taskDateValue = parseISO(taskDateValue);
   taskDateValue = format(taskDateValue, "MMMM dd, yyyy");
 
