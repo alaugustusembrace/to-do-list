@@ -141,7 +141,7 @@ const createDefaultTasks = (listArea, content) => {
     });
 
     fetch("http://localhost:5000/api/tasks", {
-      method: "POST",
+      method: "GET",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         title: task.title,

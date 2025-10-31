@@ -30,6 +30,53 @@ app.get("/api/tasks", async (req, res) => {
   res.json(tasks);
 });
 
+app.get("/api/seed-defaults", async (req, res) => {
+  const count = await Task.countDocuments();
+  if (count === 0) {
+    const defaultTasks = [
+      {
+        title: "Capture Saddam Hussein",
+        description: "Saddam Hussein's playing hide and seek, find him",
+        dueDate: "November 05, 2025",
+        priority: "high",
+        completed: false,
+      },
+      {
+        title: "Fix the bug",
+        description: "Fix the butterfly's wings",
+        dueDate: "October 31, 2025",
+        priority: "high",
+        completed: false,
+      },
+      {
+        title: "Hiking",
+        description: "Hike mount apo with the spartans",
+        dueDate: "October 31, 2025",
+        priority: "medium",
+        completed: false,
+      },
+      {
+        title: "Attend the meeting",
+        description: "Attend the google meet for the thesis consultation",
+        dueDate: "November 04, 2025",
+        priority: "medium",
+        completed: false,
+      },
+      {
+        title: "Join the seminar",
+        description: "Join the seminar about gambling addiction",
+        dueDate: "November 03, 2025",
+        priority: "low",
+        completed: false,
+      },
+    ];
+    await Task.insertMany(defaultTasks);
+    res.json({ message: "Default tasks seeded" });
+  } else {
+    res.json({ message: "Tasks already exist" });
+  }
+});
+
 app.post("/api/tasks", async (req, res) => {
   const newTask = new Task(req.body);
   await newTask.save();
