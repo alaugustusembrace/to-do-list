@@ -25,12 +25,12 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.get("/api/tasks", async (req, res) => {
+app.get("/api/defaultProject/tasks", async (req, res) => {
   const tasks = await Task.find();
   res.json(tasks);
 });
 
-app.get("/api/seed-defaults", async (req, res) => {
+app.get("/api/defaultProject/seed-defaults", async (req, res) => {
   const count = await Task.countDocuments();
   if (count === 0) {
     const defaultTasks = [
@@ -77,10 +77,26 @@ app.get("/api/seed-defaults", async (req, res) => {
   }
 });
 
-app.post("/api/tasks", async (req, res) => {
+app.post("/api/defaultProject/tasks", async (req, res) => {
   const newTask = new Task(req.body);
   await newTask.save();
   res.json(newTask);
+});
+
+app.put("/api/defaultProject/tasks/:id", async (req, res) => {
+  try {
+    const updateTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+
+    if (!updateTask) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    res.json(updateTask);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.listen(5000, () => console.log("Server running on port 5000"));

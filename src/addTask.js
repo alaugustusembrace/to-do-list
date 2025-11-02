@@ -10,7 +10,7 @@ const addTask = (
   taskDateValue,
   taskPriorityValue,
 ) => {
-  fetch("http://localhost:5000/api/tasks", {
+  fetch("http://localhost:5000/api/defaultProject/tasks", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

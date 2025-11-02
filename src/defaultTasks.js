@@ -1,8 +1,11 @@
 import { defaultProject } from "./project.js";
 import { editButtonModal } from "./editButton.js";
 
-const createDefaultTasks = (listArea, content) => {
-  for (const task of defaultProject.tasks) {
+const createDefaultTasks = async (listArea, content) => {
+  const res = await fetch("http://localhost:5000/api/defaultProject/tasks");
+  const tasks = await res.json();
+
+  for (const task of tasks) {
     const taskItem = document.createElement("li");
     taskItem.classList.add("taskItem");
     taskItem.dataset.id = task.id;
@@ -86,13 +89,52 @@ const createDefaultTasks = (listArea, content) => {
     checkTaskBtn.classList.add("check-btn");
     checkTaskBtn.type = "checkbox";
 
+    if (task.completed === true) {
+      taskTitle.style.textDecoration = "line-through";
+      checkTaskBtn.checked = true;
+    } else {
+      taskTitle.style.textDecoration = "none";
+      checkTaskBtn.checked = false;
+    }
+    taskTitle.style.textDecorationThickness = "3px";
+
     checkTaskBtn.addEventListener("click", (e) => {
       if (e.target.checked) {
         taskTitle.style.textDecoration = "line-through";
         task.completed = true;
+
+        fetch(`http://localhost:5000/api/defaultProject/tasks/${task._id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: task.title,
+            description: task.description,
+            dueDate: task.dueDate,
+            priority: task.priority,
+            completed: true,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log("Updated task:", data))
+          .catch((err) => console.log(err));
       } else {
         taskTitle.style.textDecoration = "none";
         task.completed = false;
+
+        fetch(`http://localhost:5000/api/defaultProject/tasks/${task._id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: task.title,
+            description: task.description,
+            dueDate: task.dueDate,
+            priority: task.priority,
+            completed: false,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log("Updated task:", data))
+          .catch((err) => console.log(err));
       }
       taskTitle.style.textDecorationThickness = "3px";
     });
@@ -138,18 +180,6 @@ const createDefaultTasks = (listArea, content) => {
       );
 
       listItem.remove();
-    });
-
-    fetch("http://localhost:5000/api/tasks", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: task.title,
-        description: task.description,
-        dueDate: task.dueDate,
-        priority: task.priority,
-        completed: false,
-      }),
     });
   }
 };
