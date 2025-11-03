@@ -99,4 +99,22 @@ app.put("/api/defaultProject/tasks/:id", async (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+app.delete("/api/defaultProject/tasks/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedTask = await Task.findByIdAndDelete(id);
+
+    if (!deletedTask) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    res.json({ message: "Task deleted successfully", deletedTask });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.listen(5000, (err) => {
+  if (err) console.log(err);
+  console.log("Server running on port 5000");
+});
