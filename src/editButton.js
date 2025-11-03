@@ -1,6 +1,6 @@
 import { parseISO, format } from "date-fns";
 
-const editButtonModal = (taskId, currentProject, content) => {
+const editButtonModal = (taskId, currentTasks, content) => {
   const editModal = document.createElement("dialog");
   editModal.classList.add("editModal");
 
@@ -19,7 +19,7 @@ const editButtonModal = (taskId, currentProject, content) => {
   editTaskTitle.placeholder = "Task Title";
 
   const editTaskDescription = document.createElement("input");
-  editTaskTitle.classList.add("editTaskDescription");
+  editTaskDescription.classList.add("editTaskDescription");
   editTaskDescription.placeholder = "Task Description...";
 
   editTitleAndDescWrapper.append(editTaskTitle, editTaskDescription);
@@ -28,7 +28,7 @@ const editButtonModal = (taskId, currentProject, content) => {
   editDateAndDateLabebl.classList.add("editDateAndDateLabebl");
 
   let editTaskDate = document.createElement("input");
-  editTaskTitle.id = "date";
+  editTaskDate.id = "date";
   editTaskDate.type = "date";
 
   const editTaskDateLabel = document.createElement("label");
@@ -69,8 +69,11 @@ const editButtonModal = (taskId, currentProject, content) => {
       ) {
         throw "Title or Description too long";
       } else {
-        editTaskDate = parseISO(editTaskDate.value);
-        editTaskDate = format(editTaskDate, "MMMM dd, yyyy");
+        const tempDate = editTaskDate.value;
+        if (!tempDate) throw "Please select a date";
+
+        const parsedDate = parseISO(tempDate);
+        const formattedDate = format(parsedDate, "MMMM dd, yyyy");
 
         const taskToEdit = document.querySelector(`[data-id="${taskId}"]`);
         if (!taskToEdit) return;
@@ -89,7 +92,7 @@ const editButtonModal = (taskId, currentProject, content) => {
         const newDate = taskToEdit
           .querySelector(".taskDateAndPriorityWrapper")
           .querySelector(".taskDate");
-        if (newDate) newDate.textContent = "Due Date: " + editTaskDate;
+        if (newDate) newDate.textContent = "Due Date: " + formattedDate;
 
         const newPriority = taskToEdit
           .querySelector(".taskDateAndPriorityWrapper")
@@ -114,16 +117,31 @@ const editButtonModal = (taskId, currentProject, content) => {
           }
         }
 
-        const taskData = currentProject.tasks.find(
-          (tasky) => String(tasky.id) === String(taskId),
+        const taskData = currentTasks.find(
+          (tasky) => String(tasky._id) === String(taskId),
         );
 
         if (taskData) {
           taskData.title = editTaskTitle.value;
           taskData.description = editTaskDescription.value;
-          taskData.dueDate = editTaskDate;
+          taskData.dueDate = formattedDate;
           taskData.priority = editTaskPriority.value;
         }
+
+        fetch(`http://localhost:5000/api/defaultProject/tasks/${taskId}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title: editTaskTitle.value,
+            description: editTaskDescription.value,
+            dueDate: formattedDate,
+            priority: editTaskPriority.value,
+            completed: false,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log("Edited task: ", data))
+          .catch((err) => console.log(err));
 
         editModal.close();
       }

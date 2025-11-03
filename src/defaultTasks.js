@@ -1,20 +1,23 @@
-import { defaultProject } from "./project.js";
+// import { defaultProject } from "./project.js";
 import { editButtonModal } from "./editButton.js";
 
 const createDefaultTasks = async (listArea, content) => {
   const res = await fetch("http://localhost:5000/api/defaultProject/tasks");
-  const tasks = await res.json();
+  let tasks = await res.json();
 
   for (const task of tasks) {
     const taskItem = document.createElement("li");
     taskItem.classList.add("taskItem");
-    taskItem.dataset.id = task.id;
+    taskItem.dataset.id = task._id;
+
+    console.log(task._id);
 
     const taskContainer = document.createElement("div");
     taskContainer.classList.add("taskContainer");
 
     const taskWrapper = document.createElement("div");
     taskWrapper.classList.add("taskWrapper");
+    taskWrapper.dataset.id = task._id;
 
     const taskTitleAndDescWrapper = document.createElement("div");
     taskTitleAndDescWrapper.classList.add("taskTitleAndDescWrapper");
@@ -43,6 +46,17 @@ const createDefaultTasks = async (listArea, content) => {
     priorityWrapper.classList.add("priorityWrapper");
 
     priorityWrapper.appendChild(priority);
+
+    if (task.priority === "low") {
+      priority.textContent = task.priority.toUpperCase();
+      priorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
+    } else if (task.priority === "medium") {
+      priority.textContent = task.priority.toUpperCase();
+      priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+    } else {
+      priority.textContent = task.priority.toUpperCase();
+      priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+    }
 
     switch (task.title) {
       case "Capture Saddam Hussein":
@@ -151,7 +165,7 @@ const createDefaultTasks = async (listArea, content) => {
     taskWrapper.dataset.id = task.id;
 
     editButton.addEventListener("click", () => {
-      editButtonModal(taskWrapper.dataset.id, defaultProject, content);
+      editButtonModal(task._id, tasks, content);
     });
 
     editWrapper.appendChild(editButton);
@@ -175,9 +189,18 @@ const createDefaultTasks = async (listArea, content) => {
     // Remove task
     removeTaskBtn.addEventListener("click", (e) => {
       const listItem = e.target.closest("li");
-      defaultProject.tasks = defaultProject.tasks.filter(
-        (item) => String(item.id) !== String(listItem.dataset.id),
+
+      tasks = tasks.filter(
+        (item) => String(item._id) !== String(listItem.dataset.id),
       );
+
+      fetch(`http://localhost:5000/api/defaultProject/tasks/${task._id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
 
       listItem.remove();
     });
