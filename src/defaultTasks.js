@@ -10,8 +10,6 @@ const createDefaultTasks = async (listArea, content) => {
     taskItem.classList.add("taskItem");
     taskItem.dataset.id = task._id;
 
-    console.log(task._id);
-
     const taskContainer = document.createElement("div");
     taskContainer.classList.add("taskContainer");
 

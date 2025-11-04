@@ -11,11 +11,12 @@ const { content, projectWrapper, listAreaWrapper, listArea } =
 createDefaultTasks(listArea, content);
 
 // Creating Default Project
-const { projectDivision } = createDefaultProject(
+const { projectDivision } = await createDefaultProject(
   defaultProject.title,
   listArea,
   content,
   defaultProject,
   listAreaWrapper,
 );
+
 projectWrapper.appendChild(projectDivision);

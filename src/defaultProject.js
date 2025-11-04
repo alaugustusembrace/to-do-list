@@ -2,13 +2,16 @@ import { createTaskInputAndBtn } from "./addTaskInputAndButton.js";
 import { addTask } from "./addTask.js";
 import { editButtonModal } from "./editButton.js";
 
-const createDefaultProject = (
+const createDefaultProject = async (
   title,
   listArea,
   content,
   currentProject,
   listAreaWrapper,
 ) => {
+  // const res = await fetch("http://localhost:5000/api/defaultProject/tasks");
+  // let tasks = await res.json();
+
   const projectDivision = document.createElement("button");
   projectDivision.classList.add("projectDivision");
   const projectTitle = document.createElement("h2");
@@ -148,7 +151,10 @@ const createDefaultProject = (
   });
 
   // Clearing the listArea then Assigning its respective lists
-  projectDivision.addEventListener("click", () => {
+  projectDivision.addEventListener("click", async () => {
+    const res = await fetch("http://localhost:5000/api/defaultProject/tasks");
+    let tasks = await res.json();
+
     listArea.innerHTML = "";
 
     const oldWrapper = document.querySelector(".taskInputWrapper");
@@ -156,9 +162,9 @@ const createDefaultProject = (
 
     const { addTaskBtn } = createTaskInputAndBtn(content, listAreaWrapper);
 
-    for (const task of currentProject.tasks) {
+    for (const task of tasks) {
       const taskItem = document.createElement("li");
-      taskItem.dataset.id = task.id;
+      taskItem.dataset.id = task._id;
 
       const taskContainer = document.createElement("div");
       taskContainer.classList.add("taskContainer");
@@ -208,6 +214,17 @@ const createDefaultProject = (
       priorityWrapper.classList.add("priorityWrapper");
 
       priorityWrapper.appendChild(priority);
+
+      if (task.priority === "low") {
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "rgba(0, 255, 0, 0.5)";
+      } else if (task.priority === "medium") {
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+      } else {
+        priority.textContent = task.priority.toUpperCase();
+        priorityWrapper.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
+      }
 
       switch (task.title) {
         case "Study":
@@ -273,7 +290,7 @@ const createDefaultProject = (
       editButton.textContent = "EDIT";
 
       // to edit task
-      taskWrapper.dataset.id = task.id;
+      taskWrapper.dataset.id = task._id;
 
       editButton.addEventListener("click", () => {
         editButtonModal(taskWrapper.dataset.id, currentProject);
@@ -299,9 +316,18 @@ const createDefaultProject = (
       // Remove task
       removeTaskBtn.addEventListener("click", (e) => {
         const listItem = e.target.closest("li");
-        currentProject.tasks = currentProject.tasks.filter(
-          (item) => String(item.id) !== String(listItem.dataset.id),
+
+        tasks = tasks.filter(
+          (item) => String(item._id) !== String(listItem.dataset.id),
         );
+
+        fetch(`http://localhost:5000/api/defaultProject/tasks/${task._id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
 
         listItem.remove();
       });
