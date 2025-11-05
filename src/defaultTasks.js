@@ -127,7 +127,6 @@ const createDefaultTasks = async (listArea, content) => {
           }),
         })
           .then((res) => res.json())
-          .then((data) => console.log("Updated task:", data))
           .catch((err) => console.log(err));
       } else {
         taskTitle.style.textDecoration = "none";
@@ -145,7 +144,6 @@ const createDefaultTasks = async (listArea, content) => {
           }),
         })
           .then((res) => res.json())
-          .then((data) => console.log("Updated task:", data))
           .catch((err) => console.log(err));
       }
       taskTitle.style.textDecorationThickness = "3px";
@@ -197,7 +195,6 @@ const createDefaultTasks = async (listArea, content) => {
         headers: { "Content-Type": "application/json" },
       })
         .then((res) => res.json())
-        .then((data) => console.log(data))
         .catch((err) => console.log(err));
 
       listItem.remove();

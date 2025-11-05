@@ -1,5 +1,3 @@
-import { parseISO, format } from "date-fns";
-
 const editButtonModal = (taskId, currentTasks, content) => {
   const editModal = document.createElement("dialog");
   editModal.classList.add("editModal");
@@ -72,9 +70,6 @@ const editButtonModal = (taskId, currentTasks, content) => {
         const tempDate = editTaskDate.value;
         if (!tempDate) throw "Please select a date";
 
-        const parsedDate = parseISO(tempDate);
-        const formattedDate = format(parsedDate, "MMMM dd, yyyy");
-
         const taskToEdit = document.querySelector(`[data-id="${taskId}"]`);
         if (!taskToEdit) return;
 
@@ -92,7 +87,7 @@ const editButtonModal = (taskId, currentTasks, content) => {
         const newDate = taskToEdit
           .querySelector(".taskDateAndPriorityWrapper")
           .querySelector(".taskDate");
-        if (newDate) newDate.textContent = "Due Date: " + formattedDate;
+        if (newDate) newDate.textContent = "Due Date: " + tempDate;
 
         const newPriority = taskToEdit
           .querySelector(".taskDateAndPriorityWrapper")
@@ -124,7 +119,7 @@ const editButtonModal = (taskId, currentTasks, content) => {
         if (taskData) {
           taskData.title = editTaskTitle.value;
           taskData.description = editTaskDescription.value;
-          taskData.dueDate = formattedDate;
+          taskData.dueDate = tempDate;
           taskData.priority = editTaskPriority.value;
         }
 
@@ -134,13 +129,12 @@ const editButtonModal = (taskId, currentTasks, content) => {
           body: JSON.stringify({
             title: editTaskTitle.value,
             description: editTaskDescription.value,
-            dueDate: formattedDate,
+            dueDate: tempDate,
             priority: editTaskPriority.value,
-            completed: false,
+            // completed: false,
           }),
         })
           .then((res) => res.json())
-          .then((data) => console.log("Edited task: ", data))
           .catch((err) => console.log(err));
 
         editModal.close();

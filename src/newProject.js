@@ -33,6 +33,14 @@ const createNewProject = (
   projectDialog.appendChild(createProjectBtn);
 
   createProjectBtn.addEventListener("click", () => {
+    fetch("http://localhost:5000/api/projects", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: {
+        title: projectTitleInput.value,
+      },
+    });
+
     const currentProject = new Project(projectTitleInput.value);
 
     projectTitle.textContent = currentProject.title;

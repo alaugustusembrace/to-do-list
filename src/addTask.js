@@ -1,7 +1,7 @@
 import { editButtonModal } from "./editButton.js";
-import { parseISO, format } from "date-fns";
+// import { parseISO, format } from "date-fns";
 
-const addTask = (
+const addTask = async (
   taskItemIndex,
   currentProject,
   listArea,
@@ -22,8 +22,8 @@ const addTask = (
     }),
   });
 
-  taskDateValue = parseISO(taskDateValue);
-  taskDateValue = format(taskDateValue, "MMMM dd, yyyy");
+  // taskDateValue = parseISO(taskDateValue);
+  // taskDateValue = format(taskDateValue, "MMMM dd, yyyy");
 
   const taskItem = document.createElement("li");
   taskItem.dataset.id = taskItemIndex;
@@ -102,18 +102,27 @@ const addTask = (
   checkTaskBtn.classList.add("check-btn");
   checkTaskBtn.type = "checkbox";
 
-  checkTaskBtn.addEventListener("click", (e) => {
-    if (e.target.checked) {
+  const res = await fetch("http://localhost:5000/api/defaultProject/tasks");
+  let tasks = await res.json();
+
+  for (const task of tasks) {
+    if (task.completed) {
+      checkTaskBtn.checked = true;
       taskTitle.style.textDecoration = "line-through";
-      const tasksLength = currentProject.tasks.length;
-      currentProject.tasks[tasksLength - 1].completed = true;
-    } else {
-      taskTitle.style.textDecoration = "none";
-      const tasksLength = currentProject.tasks.length;
-      currentProject.tasks[tasksLength - 1].completed = false;
+      taskTitle.style.textDecorationThickness = "3px";
     }
-    taskTitle.style.textDecorationThickness = "3px";
-  });
+
+    checkTaskBtn.addEventListener("click", (e) => {
+      if (e.target.checked) {
+        taskTitle.style.textDecoration = "line-through";
+        task.completed = true;
+      } else {
+        taskTitle.style.textDecoration = "none";
+        task.completed = false;
+      }
+      taskTitle.style.textDecorationThickness = "3px";
+    });
+  }
 
   const editWrapper = document.createElement("div");
   editWrapper.classList.add("editWrapper");
@@ -124,11 +133,13 @@ const addTask = (
 
   // to edit task
 
-  taskWrapper.dataset.id = taskItemIndex;
+  for (const task of tasks) {
+    taskWrapper.dataset.id = task._id;
 
-  editButton.addEventListener("click", () => {
-    editButtonModal(taskWrapper.dataset.id, currentProject);
-  });
+    editButton.addEventListener("click", () => {
+      editButtonModal(taskWrapper.dataset.id, currentProject);
+    });
+  }
 
   checkAndRemoveBtnWrapper.append(removeTaskBtn, checkTaskBtn);
 
@@ -148,13 +159,27 @@ const addTask = (
   listArea.appendChild(taskItem);
 
   // Remove task
-  removeTaskBtn.addEventListener("click", (e) => {
-    const listItem = e.target.closest("li");
-    currentProject.tasks = currentProject.tasks.filter(
-      (item) => String(item.id) !== String(listItem.dataset.id),
-    );
-    listItem.remove();
-  });
+  // const res = await fetch("http://localhost:5000/api/defaultProject/tasks");
+  // let tasks = await res.json();
+
+  for (const task of tasks) {
+    removeTaskBtn.addEventListener("click", (e) => {
+      const listItem = e.target.closest("li");
+
+      tasks = tasks.filter(
+        (item) => String(item._id) !== String(listItem.dataset.id),
+      );
+
+      fetch(`http://localhost:5000/api/defaultProject/tasks/${task._id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
+
+      listItem.remove();
+    });
+  }
 };
 
 export { addTask };

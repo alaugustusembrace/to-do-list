@@ -19,7 +19,12 @@ const taskSchema = new mongoose.Schema({
   completed: { type: Boolean, default: false },
 });
 
+const projectSchema = new mongoose.Schema({
+  title: String,
+});
+
 const Task = mongoose.model("Task", taskSchema);
+const Project = mongoose.model("Project", projectSchema);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -28,6 +33,23 @@ app.get("/", (req, res) => {
 app.get("/api/defaultProject/tasks", async (req, res) => {
   const tasks = await Task.find();
   res.json(tasks);
+});
+
+app.get("/api/projects", async (req, res) => {
+  const projects = await Project.find();
+  res.json(projects);
+});
+
+app.get("/api/projects/seed-defaults", async (req, res) => {
+  const count = await Project.countDocuments();
+  if (count === 0) {
+    const projects = [{ title: "Routine" }];
+
+    await Project.insertMany(projects);
+    res.json({ message: "Project/s seeded" });
+  } else {
+    res.json({ message: "Projects already exist" });
+  }
 });
 
 app.get("/api/defaultProject/seed-defaults", async (req, res) => {

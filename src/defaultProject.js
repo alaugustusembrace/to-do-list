@@ -9,9 +9,6 @@ const createDefaultProject = async (
   currentProject,
   listAreaWrapper,
 ) => {
-  // const res = await fetch("http://localhost:5000/api/defaultProject/tasks");
-  // let tasks = await res.json();
-
   const projectDivision = document.createElement("button");
   projectDivision.classList.add("projectDivision");
   const projectTitle = document.createElement("h2");
@@ -293,7 +290,7 @@ const createDefaultProject = async (
       taskWrapper.dataset.id = task._id;
 
       editButton.addEventListener("click", () => {
-        editButtonModal(taskWrapper.dataset.id, currentProject);
+        editButtonModal(taskWrapper.dataset.id, tasks, content);
       });
 
       checkAndRemoveBtnWrapper.append(removeTaskBtn, checkTaskBtn);
@@ -326,7 +323,6 @@ const createDefaultProject = async (
           headers: { "Content-Type": "application/json" },
         })
           .then((res) => res.json())
-          .then((data) => console.log(data))
           .catch((err) => console.log(err));
 
         listItem.remove();
