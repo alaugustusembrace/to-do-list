@@ -36,9 +36,9 @@ const createNewProject = (
     fetch("http://localhost:5000/api/projects", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: {
+      body: JSON.stringify({
         title: projectTitleInput.value,
-      },
+      }),
     });
 
     const currentProject = new Project(projectTitleInput.value);

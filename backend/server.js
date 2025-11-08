@@ -105,6 +105,12 @@ app.post("/api/defaultProject/tasks", async (req, res) => {
   res.json(newTask);
 });
 
+app.post("/api/projects", async (req, res) => {
+  const newProject = new Project(req.body);
+  await newProject.save();
+  res.json(newProject);
+});
+
 app.put("/api/defaultProject/tasks/:id", async (req, res) => {
   try {
     const updateTask = await Task.findByIdAndUpdate(req.params.id, req.body, {

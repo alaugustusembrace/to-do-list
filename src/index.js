@@ -19,4 +19,21 @@ const { projectDivision } = await createDefaultProject(
   listAreaWrapper,
 );
 
+// fetch projects
+async function getProjects() {
+  const response = await fetch("http://localhost:5000/api/projects");
+  const projects = await response.json();
+
+  for (let i = 1; i < projects.length; i++) {
+    const newProjectDivision = document.createElement("button");
+    newProjectDivision.classList.add("newProjectDivision");
+    const projectTitle = document.createElement("h2");
+    projectTitle.textContent = projects[i].title;
+
+    newProjectDivision.appendChild(projectTitle);
+    projectWrapper.appendChild(newProjectDivision);
+  }
+}
+
 projectWrapper.appendChild(projectDivision);
+getProjects();
