@@ -99,6 +99,17 @@ app.get("/api/defaultProject/seed-defaults", async (req, res) => {
   }
 });
 
+// there's a problem, refactor this
+app.get("/api/projects/:id", async (req, res) => {
+  const count = await Task.countDocuments();
+  if (count === 0) {
+    res.json({ message: "Tasks empty " });
+  }
+
+  const newTasks = await Task.find();
+  res.json(newTasks);
+});
+
 app.post("/api/defaultProject/tasks", async (req, res) => {
   const newTask = new Task(req.body);
   await newTask.save();
