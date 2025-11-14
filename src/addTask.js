@@ -9,6 +9,7 @@ const addTask = async (
   taskDescriptionValue,
   taskDateValue,
   taskPriorityValue,
+  // id,   REMEMBER THIS!
 ) => {
   fetch("http://localhost:5000/api/defaultProject/tasks", {
     method: "POST",

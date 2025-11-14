@@ -24,6 +24,8 @@ const projectSchema = new mongoose.Schema({
 });
 
 const Task = mongoose.model("Task", taskSchema);
+const newTask = mongoose.model("newTask", taskSchema);
+
 const Project = mongoose.model("Project", projectSchema);
 
 app.get("/", (req, res) => {
@@ -101,13 +103,13 @@ app.get("/api/defaultProject/seed-defaults", async (req, res) => {
 
 // there's a problem, refactor this
 app.get("/api/projects/:id", async (req, res) => {
-  const count = await Task.countDocuments();
+  const count = await newTask.countDocuments();
   if (count === 0) {
-    res.json({ message: "Tasks empty " });
+    res.json({ message: "Tasks empty" });
+  } else {
+    const newTasks = await newTask.find();
+    res.json(newTasks);
   }
-
-  const newTasks = await Task.find();
-  res.json(newTasks);
 });
 
 app.post("/api/defaultProject/tasks", async (req, res) => {

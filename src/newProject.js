@@ -362,6 +362,8 @@ const createNewProject = (
   closeModalBtn.addEventListener("click", () => {
     projectDialog.close();
   });
+
+  return { newProjectDivision };
 };
 
 export { createNewProject };
